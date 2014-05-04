@@ -99,7 +99,7 @@ public class ProductsDBAdapter {
 					 KEY_PROD_STOCK+ " INTEGER NOT NULL, "+
 					 KEY_PROD_COST+ " REAL NOT NULL, "+ 
 					 KEY_PROD_PRICE+ " REAL NOT NULL, "+
-					 KEY_PROD_BOUGHT+ " INTEGER NOT NULL"+ 
+					 KEY_PROD_BOUGHT+ " INTEGER NOT NULL, "+ 
 					 KEY_PROD_PHOTO+ " BLOB);";
 		
 		public ProductsDBHelper(Context context, String name,

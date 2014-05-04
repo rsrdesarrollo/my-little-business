@@ -11,7 +11,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name">
+        android:label="@string/app_name" >
         <activity
             android:name="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity"
             android:label="@string/title_activity_product_list" >
@@ -20,6 +20,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="es.ucm.pad.teamjvr.mylittlebusiness.AddProductActivity"
+            android:label="@string/title_activity_add_product" >
         </activity>
     </application>
 

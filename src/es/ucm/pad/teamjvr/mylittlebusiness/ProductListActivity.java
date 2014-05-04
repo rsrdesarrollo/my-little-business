@@ -1,5 +1,6 @@
 package es.ucm.pad.teamjvr.mylittlebusiness;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActionBar.LayoutParams;
@@ -18,9 +19,12 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import es.ucm.pad.teamjvr.mylittlebusiness.Modelo.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.Modelo.DBAdapter.ProductsDBAdapter;
 
 public class ProductListActivity extends ListActivity {
-
+	
+	private ProductsDBAdapter dbAdapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,7 +40,16 @@ public class ProductListActivity extends ListActivity {
 		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
 		root.addView(progressBar);
 		
+		ArrayList<Product> products = new ArrayList<>();
+		
+		this.dbAdapter = new ProductsDBAdapter(this);
+		
+		this.dbAdapter.open();
+		this.dbAdapter.uptadeProductArray(products);
+		
 		ListView listview = getListView();
+		
+		listview.setAdapter(new ProductAdapter(this, android.R.layout.simple_list_item_1, products));
 
 	}
 
@@ -86,6 +99,7 @@ public class ProductListActivity extends ListActivity {
 			if (item != null) {
 				name.setText(item.getName());
 				stock.setText(item.getStock());
+				photo.setImageBitmap(item.getPhoto());
 			}
 
 			return vi;

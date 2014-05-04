@@ -50,21 +50,23 @@ public class Product {
 //		this.photo = BitmapFactory.decodeResource(R, android.R.drawable.ic_menu_gallery);
 //	}
 	
-	public Product(String name,int stock, double cost, double price){
+	public Product(String name,int stock, double cost, double price, Bitmap photo){
 		this.name = name;
 		this.stock = stock;
 		this.boughtUnits = stock;
 		this.cost = cost;
 		this.price = price;
+		this.photo = photo;
 	}
 	
-	public Product(String name, double cost, double price){
-		this.name = name;
-		this.stock = 0;
-		this.boughtUnits = 0;
-		this.cost = cost;
-		this.price = price;
-	}
+//	
+//	public Product(String name, double cost, double price){
+//		this.name = name;
+//		this.stock = 0;
+//		this.boughtUnits = 0;
+//		this.cost = cost;
+//		this.price = price;
+//	}
 	
 	public ContentValues toContentValues(){
 		ContentValues content = new ContentValues();
