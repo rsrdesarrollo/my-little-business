@@ -22,19 +22,21 @@ public class ProductsDBAdapter {
 	public static final String KEY_PROD_COST = "prod_cost";
 	public static final String KEY_PROD_PRICE = "prod_price";
 	public static final String KEY_PROD_BOUGHT = "prod_bought";
+	public static final String KEY_PROD_PHOTO = "prod_photo";
+	
+	public static final String[] KEYS_PROD = {KEY_PROD_NAME, KEY_PROD_STOCK, KEY_PROD_COST, KEY_PROD_PRICE, KEY_PROD_BOUGHT, KEY_PROD_PHOTO};
 	
 	public static final int PROD_NAME_COL = 0;
 	public static final int PROD_STOCK_COL = 1;
 	public static final int PROD_COST_COL = 2;
 	public static final int PROD_PRICE_COL = 3;
 	public static final int PROD_BOUGHT_COL = 4;
+	public static final int PROD_PHOTO_COL = 5;
 	
 	private SQLiteDatabase db;
 	private ProductsDBHelper dbHelper;
-	private final Context context;
 	
 	public ProductsDBAdapter(Context context){
-		this.context = context;
 		this.dbHelper = new ProductsDBHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	
@@ -65,8 +67,7 @@ public class ProductsDBAdapter {
 	}
 	
 	public Product getProduct(String name) throws SQLException{
-		Cursor cursor = db.query(DATABASE_TABLE, new String[] 
-				{KEY_PROD_NAME, KEY_PROD_STOCK, KEY_PROD_COST, KEY_PROD_PRICE, KEY_PROD_BOUGHT},
+		Cursor cursor = db.query(DATABASE_TABLE, KEYS_PROD,
 				 KEY_PROD_NAME+" = '"+ name +"'", null, null, null, null);
 		
 		if(cursor.getCount() == 0 || !cursor.moveToFirst())
@@ -75,11 +76,14 @@ public class ProductsDBAdapter {
 		return new Product(cursor);
 	}
 	
+	/**
+	 * Llena una lista con todos los productos de la BBDD
+	 * 
+	 * @param products - Lista de productos a ser actualizada.
+	 */
 	public void uptadeProductArray(ArrayList<Product> products){
 		
-		Cursor cursor = db.query(DATABASE_TABLE, new String[] 
-				{KEY_PROD_NAME, KEY_PROD_STOCK, KEY_PROD_COST, KEY_PROD_PRICE, KEY_PROD_BOUGHT}, 
-				null, null, null, null, null);
+		Cursor cursor = db.query(DATABASE_TABLE, KEYS_PROD, null, null, null, null, null);
 		
 		products.clear();
 		if(cursor.moveToFirst())
@@ -95,7 +99,8 @@ public class ProductsDBAdapter {
 					 KEY_PROD_STOCK+ " INTEGER NOT NULL, "+
 					 KEY_PROD_COST+ " REAL NOT NULL, "+ 
 					 KEY_PROD_PRICE+ " REAL NOT NULL, "+
-					 KEY_PROD_BOUGHT+ " INTEGER NOT NULL"+");";
+					 KEY_PROD_BOUGHT+ " INTEGER NOT NULL"+ 
+					 KEY_PROD_PHOTO+ " BLOB);";
 		
 		public ProductsDBHelper(Context context, String name,
 				CursorFactory factory, int version) {

@@ -1,24 +1,29 @@
 package es.ucm.pad.teamjvr.mylittlebusiness;
 
+import java.util.List;
+
 import android.app.ActionBar.LayoutParams;
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import es.ucm.pad.teamjvr.mylittlebusiness.Modelo.Product;
 
 public class ProductListActivity extends ListActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_product_list);
 		
 		// Create a progress bar to display while the list loads
 		ProgressBar progressBar = new ProgressBar(this);
@@ -54,22 +59,38 @@ public class ProductListActivity extends ListActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	private class ProductAdapter extends ArrayAdapter<Product> {
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
+		private List<Product> items;
+		private LayoutInflater inflater;
 
-		public PlaceholderFragment() {
+		public ProductAdapter(Context context, int resource, List<Product> products) {
+			super(context, resource, products);
+			this.items = products;
+			this.inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 		}
-
+		
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_product_list,
-					container, false);
-			return rootView;
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View vi = convertView;
+			if (convertView == null)
+				vi = inflater.inflate(R.layout.list_item_product, null);
+
+			TextView name = (TextView) vi.findViewById(R.id.nameItemText);
+			TextView stock = (TextView) vi.findViewById(R.id.stockItemText);
+			ImageView photo = (ImageView) vi.findViewById(R.id.photoItemImage);
+			
+			Product item = items.get(position);
+
+			if (item != null) {
+				name.setText(item.getName());
+				stock.setText(item.getStock());
+			}
+
+			return vi;
 		}
+		
 	}
 
 }
