@@ -40,7 +40,7 @@ public class ProductListActivity extends ListActivity {
 		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
 		root.addView(progressBar);
 		
-		ArrayList<Product> products = new ArrayList<>();
+		ArrayList<Product> products = new ArrayList<Product>();
 		
 		this.dbAdapter = new ProductsDBAdapter(this);
 		
