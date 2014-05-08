@@ -9,6 +9,7 @@
         android:id="@+id/photoItemImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/product_image_descrip"
         android:src="@android:drawable/ic_menu_gallery" />
 
     <LinearLayout
@@ -20,15 +21,14 @@
             android:id="@+id/nameItemText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Product Name"
+            android:text="@string/name_label"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/stockItemText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stock: X" />
-
+            android:text="@string/stock_label" />
     </LinearLayout>
 
 </LinearLayout>
