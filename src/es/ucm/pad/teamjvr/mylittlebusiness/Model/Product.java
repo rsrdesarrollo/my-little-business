@@ -1,4 +1,4 @@
-package es.ucm.pad.teamjvr.mylittlebusiness.Modelo;
+package es.ucm.pad.teamjvr.mylittlebusiness.Model;
 
 import java.io.ByteArrayOutputStream;
 
@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import es.ucm.pad.teamjvr.mylittlebusiness.Modelo.DBAdapter.ProductsDBAdapter;
+import es.ucm.pad.teamjvr.mylittlebusiness.Model.DBAdapter.ProductsDBAdapter;
 
 public class Product {
 	private String name;

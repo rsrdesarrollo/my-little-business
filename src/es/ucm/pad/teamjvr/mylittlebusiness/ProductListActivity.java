@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.ActionBar.LayoutParams;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,8 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import es.ucm.pad.teamjvr.mylittlebusiness.Modelo.Product;
-import es.ucm.pad.teamjvr.mylittlebusiness.Modelo.DBAdapter.ProductsDBAdapter;
+import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.Model.DBAdapter.ProductsDBAdapter;
 
 public class ProductListActivity extends ListActivity {
 	private class ProductAdapter extends ArrayAdapter<Product> {
@@ -93,11 +94,18 @@ public class ProductListActivity extends ListActivity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		
-		if (id == R.id.action_settings)
-			return true;
-		
-		return super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {
+			case R.id.action_settings: {
+				return super.onOptionsItemSelected(item);
+			}
+			
+			case R.id.addItem: {
+				Intent intent = new Intent(this, AddProductActivity.class);
+				startActivity(intent);
+			}
+				
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 }

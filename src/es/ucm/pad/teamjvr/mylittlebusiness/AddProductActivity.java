@@ -1,10 +1,10 @@
 package es.ucm.pad.teamjvr.mylittlebusiness;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,10 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import es.ucm.pad.teamjvr.mylittlebusiness.Modelo.Product;
-import es.ucm.pad.teamjvr.mylittlebusiness.Modelo.DBAdapter.ProductsDBAdapter;
+import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.Model.DBAdapter.ProductsDBAdapter;
 
-public class AddProductActivity extends ActionBarActivity implements
+public class AddProductActivity extends Activity implements
 		OnClickListener {
 	private Button bttAdd;
 	private EditText txtName;
