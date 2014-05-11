@@ -13,7 +13,7 @@ import android.util.Log;
 import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
 
 public class ProductsDBAdapter {
-	private class ProductsDBHelper extends SQLiteOpenHelper{
+	private class ProductsDBHelper extends SQLiteOpenHelper {
 		private static final String SQL_CREATE_TABLE = "CREATE TABLE " + DATABASE_TABLE +
 				" ("+KEY_PROD_NAME+" TEXT PRIMARY KEY NOT NULL UNIQUE, "+
 					 KEY_PROD_STOCK+ " INTEGER NOT NULL, "+
@@ -44,10 +44,10 @@ public class ProductsDBAdapter {
 		}
 	}
 	
-	public static final String DATABASE_NAME = "myLittleBusines.db";
+	private static final String DATABASE_NAME = "myLittleBusines.db";
 	private static final String DATABASE_TABLE = "Products";
 	
-	public static final int 	DATABASE_VERSION = 1;
+	private static final int 	DATABASE_VERSION = 1;
 	public static final String KEY_PROD_NAME = "prod_name";
 	public static final String KEY_PROD_STOCK = "prod_stock";
 	public static final String KEY_PROD_COST = "prod_cost";
@@ -56,7 +56,7 @@ public class ProductsDBAdapter {
 	
 	public static final String KEY_PROD_PHOTO = "prod_photo";
 	
-	public static final String[] KEYS_PROD = { KEY_PROD_NAME, KEY_PROD_STOCK,
+	private static final String[] KEYS_PROD = { KEY_PROD_NAME, KEY_PROD_STOCK,
 			KEY_PROD_COST, KEY_PROD_PRICE, KEY_PROD_BOUGHT, KEY_PROD_PHOTO };
 	public static final int PROD_NAME_COL = 0;
 	public static final int PROD_STOCK_COL = 1;

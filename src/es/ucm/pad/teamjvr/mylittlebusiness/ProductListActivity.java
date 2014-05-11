@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
-import es.ucm.pad.teamjvr.mylittlebusiness.Model.DBAdapter.ProductsDBAdapter;
 
 public class ProductListActivity extends ListActivity {
 	private class ProductAdapter extends ArrayAdapter<Product> {
@@ -47,14 +46,14 @@ public class ProductListActivity extends ListActivity {
 			if (item != null) {
 				name.setText(item.getName());
 				stock.setText(item.getStock());
-				photo.setImageBitmap(item.getPhoto());
+				
+				if (item.getPhoto() != null)
+					photo.setImageBitmap(item.getPhoto());
 			}
 
 			return vi;
 		}
 	}
-
-	private ProductsDBAdapter dbAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +72,7 @@ public class ProductListActivity extends ListActivity {
 		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
 		root.addView(progressBar);
 
-		this.dbAdapter = new ProductsDBAdapter(this);
-		this.dbAdapter.open();
-
-		List<Product> products = this.dbAdapter.toList();
+		List<Product> products = ((MLBApplication) getApplication()).productList();
 		getListView().setAdapter(
 				new ProductAdapter(this, android.R.layout.simple_list_item_1,
 						products));

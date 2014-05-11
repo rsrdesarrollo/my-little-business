@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
-import es.ucm.pad.teamjvr.mylittlebusiness.Model.DBAdapter.ProductsDBAdapter;
 
 public class AddProductActivity extends Activity implements
 		OnClickListener {
@@ -24,8 +23,6 @@ public class AddProductActivity extends Activity implements
 	private EditText txtPrice;
 	private ImageView prodImage;
 	private Bitmap photo;
-
-	private ProductsDBAdapter dbAdapt;
 
 	private static final int TAKE_PROD_PIC = 1;
 
@@ -81,13 +78,13 @@ public class AddProductActivity extends Activity implements
 		}
 
 		Log.i("AddProduct", "Description: '" + descript + "'");
-
-		dbAdapt.open();
 		
-		if (descript.compareTo("") == 0)
+		MLBApplication appl = (MLBApplication) getApplication();
+		
+		if (descript.equals(""))
 			Toast.makeText(getApplicationContext(), R.string.error_name_empty,
 					Toast.LENGTH_SHORT).show();
-		else if (!dbAdapt.addProduct(new Product(descript, stock, cost, price,
+		else if (!appl.addProduct(new Product(descript, stock, cost, price,
 				this.photo)))
 			Toast.makeText(getApplicationContext(),
 					R.string.error_product_exist, Toast.LENGTH_SHORT).show();

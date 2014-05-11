@@ -37,17 +37,25 @@ public class Product {
 		this.price = prod.price;
 		this.photo = prod.photo;
 	}
-	
-// TODO: Pensar que hacer con la inicialización del bitmap
-//	public Product(String name){
-//		this.name = name;
-//		this.stock = 0;
-//		this.boughtUnits = 0;
-//		this.cost = 0;
-//		this.price = 0;
-//		this.photo = BitmapFactory.decodeResource(R, android.R.drawable.ic_menu_gallery);
-//	}
-	
+
+	public Product(String name) {
+		this.name = name;
+		this.stock = 0;
+		this.boughtUnits = 0;
+		this.cost = 0;
+		this.price = 0;
+		this.photo = null;
+	}
+
+	public Product(String name, double cost, double price) {
+		this.name = name;
+		this.stock = 0;
+		this.boughtUnits = 0;
+		this.cost = cost;
+		this.price = price;
+		this.photo = null;
+	}
+
 	public Product(String name, int stock, double cost, double price,
 			Bitmap photo) {
 		this.name = name;
@@ -57,53 +65,69 @@ public class Product {
 		this.price = price;
 		this.photo = photo;
 	}
-	
-//	public Product(String name, double cost, double price){
-//		this.name = name;
-//		this.stock = 0;
-//		this.boughtUnits = 0;
-//		this.cost = cost;
-//		this.price = price;
-//	}
-	
+
 	public void addStock(int units) {
 		this.stock += units;
 		this.boughtUnits += units;
 	}
 
-	public final int getBoughtUnits() {
-		return boughtUnits;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
-	public double getCost() {
-		return cost;
+	public String getBoughtUnits() {
+		return Integer.toString(boughtUnits);
+	}
+
+	public String getCost() {
+		return Double.toString(cost);
 	}
 
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * 
+	 * @return photo of this Product, or null if there's no photo.
+	 */
 	public Bitmap getPhoto() {
 		return photo;
 	}
 
 	private byte[] getPhotoAsByteArray() {
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		photo.compress(CompressFormat.PNG, 0, outputStream); // PNG: lossless
-																// compression
-		return outputStream.toByteArray();
+		if (photo != null) {
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			photo.compress(CompressFormat.PNG, 0, outputStream); // PNG: lossless compression
+			return outputStream.toByteArray();
+		}
+
+		return new byte[0];
 	}
 
-	public final double getPrice() {
-		return price;
+	public String getPrice() {
+		return Double.toString(price);
 	}
 
-	public final int getSoldUnits() {
-		return boughtUnits - stock;
+	public String getSoldUnits() {
+		return Integer.toString(boughtUnits - stock);
 	}
 
-	public int getStock() {
-		return stock;
+	public String getStock() {
+		return Integer.toString(stock);
 	}
 
 	public void sellUnits(int units) {
