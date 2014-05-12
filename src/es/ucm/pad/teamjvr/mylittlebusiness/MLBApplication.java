@@ -15,10 +15,15 @@ public class MLBApplication extends Application {
 
 	public boolean addProduct(Product prod) {
 		regenerateAttr();
-
-		products.put(prod.getName(), prod);
+		
 		db.open();
-		return db.addProduct(prod);
+		
+		if (db.addProduct(prod)) {
+			products.put(prod.getName(), prod);
+			return true;
+		}
+		
+		return false;
 	}
 
 	public void closeDatabase() {
@@ -27,10 +32,15 @@ public class MLBApplication extends Application {
 
 	public boolean deleteProduct(Product prod) {
 		regenerateAttr();
-
-		products.remove(prod.getName());
+		
 		db.open();
-		return db.deleteProduct(prod);
+		
+		if (db.deleteProduct(prod)) {
+			products.remove(prod.getName());
+			return true;
+		}
+
+		return false;
 	}
 
 	public Product getProduct(String name) {
@@ -61,9 +71,14 @@ public class MLBApplication extends Application {
 
 	public boolean updateProduct(Product prod) {
 		regenerateAttr();
-
-		products.put(prod.getName(), prod);
+		
 		db.open();
-		return db.updateProduct(prod);
+		
+		if (db.updateProduct(prod)) {
+			products.put(prod.getName(), prod);
+			return true;
+		}
+		
+		return false;
 	}
 }

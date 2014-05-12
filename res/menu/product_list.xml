@@ -3,13 +3,13 @@
     tools:context="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity" >
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"/>
-    <item
         android:id="@+id/addItem"
         android:icon="@android:drawable/ic_input_add"
         android:orderInCategory="100"
         android:title="@string/action_add_product"/>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"/>
 
 </menu>
