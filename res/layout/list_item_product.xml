@@ -10,11 +10,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/product_image_descrip"
+        android:maxWidth="20dp"
+        android:maxHeight="20dp"
+        android:minHeight="17dp"
+        android:minWidth="17dp"
         android:src="@android:drawable/ic_menu_gallery" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView

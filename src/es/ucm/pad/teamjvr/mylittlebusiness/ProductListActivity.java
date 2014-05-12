@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
 
@@ -60,17 +59,18 @@ public class ProductListActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		// Create a progress bar to display while the list loads
-		ProgressBar progressBar = new ProgressBar(this);
-		progressBar.setLayoutParams(new LayoutParams(
+		String emptyMsg = getResources().getString(R.string.empty_list);
+		TextView textMsg = new TextView(this);
+		textMsg.setText(emptyMsg);
+		textMsg.setLayoutParams(new LayoutParams(
 				android.view.ViewGroup.LayoutParams.MATCH_PARENT,
 				android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
 				Gravity.CENTER));
-		progressBar.setIndeterminate(true);
-		getListView().setEmptyView(progressBar);
+		getListView().setEmptyView(textMsg);
 
 		// Must add the progress bar to the root of the layout
 		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
-		root.addView(progressBar);
+		root.addView(textMsg);
 
 		List<Product> products = ((MLBApplication) getApplication()).productList();
 		getListView().setAdapter(

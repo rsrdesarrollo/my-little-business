@@ -34,5 +34,6 @@
     <string name="add_btt">Add</string>
     <string name="add_new_image_descript">Add new image&#8230;</string>
     <string name="product_image_descrip">Product image</string>
+    <string name="empty_list">Empty list</string>
 
 </resources>
