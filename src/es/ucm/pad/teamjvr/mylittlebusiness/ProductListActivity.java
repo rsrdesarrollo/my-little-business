@@ -53,7 +53,14 @@ public class ProductListActivity extends ListActivity {
 			return vi;
 		}
 	}
-
+	
+	private void regenerateProductsList() {
+		List<Product> products = ((MLBApplication) getApplication()).productList();
+		getListView().setAdapter(
+				new ProductAdapter(this, android.R.layout.simple_list_item_1,
+						products));
+	};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,11 +78,8 @@ public class ProductListActivity extends ListActivity {
 		// Must add the progress bar to the root of the layout
 		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
 		root.addView(textMsg);
-
-		List<Product> products = ((MLBApplication) getApplication()).productList();
-		getListView().setAdapter(
-				new ProductAdapter(this, android.R.layout.simple_list_item_1,
-						products));
+		
+		regenerateProductsList();
 	}
 
 	@Override
@@ -91,10 +95,6 @@ public class ProductListActivity extends ListActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
-			case R.id.action_settings: {
-				return super.onOptionsItemSelected(item);
-			}
-			
 			case R.id.addItem: {
 				Intent intent = new Intent(this, AddProductActivity.class);
 				startActivity(intent);
@@ -103,5 +103,11 @@ public class ProductListActivity extends ListActivity {
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		regenerateProductsList();
 	}
 }
