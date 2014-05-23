@@ -13,9 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
 
 public class ProductListActivity extends ListActivity {
@@ -73,13 +77,34 @@ public class ProductListActivity extends ListActivity {
 				android.view.ViewGroup.LayoutParams.MATCH_PARENT,
 				android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
 				Gravity.CENTER));
-		getListView().setEmptyView(textMsg);
+		ListView lv = getListView();
+		
+		lv.setEmptyView(textMsg);
+		lv.setOnItemLongClickListener(onListItemLongClick());
 
 		// Must add the progress bar to the root of the layout
 		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
 		root.addView(textMsg);
 		
 		regenerateProductsList();
+	}
+
+	private OnItemLongClickListener onListItemLongClick() {
+		return new OnItemLongClickListener() {
+	        @Override
+	        public boolean onItemLongClick(AdapterView<?> arg0, View v,
+	                int position, long id) {
+	        	// TODO Auto-generated method stub
+	            Toast.makeText(getApplicationContext(), "Long Clicked : " + id, Toast.LENGTH_SHORT).show();
+	            return true;
+	        }
+		};
+	}
+	
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		Toast.makeText(getApplicationContext(), "Clicked : " + id, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
