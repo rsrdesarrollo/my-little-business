@@ -104,7 +104,10 @@ public class ProductListActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
-		Toast.makeText(getApplicationContext(), "Clicked : " + id, Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(this, ProductDetailsActivity.class);
+		MLBApplication app = (MLBApplication) getApplication();
+		app.setCurrentProd((Product) l.getAdapter().getItem(position));
+		startActivity(intent);
 	}
 
 	@Override

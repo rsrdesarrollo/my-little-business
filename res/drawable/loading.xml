@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false" >
+    <item android:drawable="@drawable/loading_bar1" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar2" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar3" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar4" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar5" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar6" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar7" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar8" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar9" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar10" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar11" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar12" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar13" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar14" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar15" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar16" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar17" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar18" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar19" android:duration="100" />
+    <item android:drawable="@drawable/loading_bar20" android:duration="100" />
+
+</animation-list>

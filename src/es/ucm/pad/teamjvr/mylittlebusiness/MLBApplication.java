@@ -12,6 +12,7 @@ import es.ucm.pad.teamjvr.mylittlebusiness.Model.DBAdapter.ProductsDBAdapter;
 public class MLBApplication extends Application {
 	private ProductsDBAdapter db = null;
 	private Map<String, Product> products = null;
+	private Product currentProd = null;
 
 	public boolean addProduct(Product prod) {
 		regenerateAttr();
@@ -80,5 +81,13 @@ public class MLBApplication extends Application {
 		}
 		
 		return false;
+	}
+
+	public Product getCurrentProd() {
+		return currentProd;
+	}
+
+	public void setCurrentProd(Product currentProd) {
+		this.currentProd = currentProd;
 	}
 }

@@ -13,7 +13,7 @@
     <string name="add_item_label">Add items:</string>
     <string name="save">Save</string>
     <string name="sell_item_btt">Sell</string>
-    <string name="sold_item_lable">Sold items:</string>
+    <string name="sold_item_label">Sold items:</string>
     <string name="error_product_exist">Product name already exist</string>
     <string name="error_name_empty">Name field can not be empty</string>
     <string name="delete_item">Delete item</string>
@@ -35,5 +35,7 @@
     <string name="add_new_image_descript">Add new image&#8230;</string>
     <string name="product_image_descrip">Product image</string>
     <string name="empty_list">Empty list</string>
+    <string name="title_activity_product_details">Product details</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
