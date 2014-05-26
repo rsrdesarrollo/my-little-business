@@ -13,7 +13,7 @@
     <string name="add_item_label">Add items:</string>
     <string name="save">Save</string>
     <string name="sell_item_btt">Sell</string>
-    <string name="sold_item_label">Sold items:</string>
+    <string name="sell_item_label">Sell items:</string>
     <string name="error_product_exist">Product name already exist</string>
     <string name="error_name_empty">Name field can not be empty</string>
     <string name="delete_item">Delete item</string>

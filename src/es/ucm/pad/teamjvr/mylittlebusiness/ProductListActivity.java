@@ -105,8 +105,7 @@ public class ProductListActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(this, ProductDetailsActivity.class);
-		MLBApplication app = (MLBApplication) getApplication();
-		app.setCurrentProd((Product) l.getAdapter().getItem(position));
+		((MLBApplication) getApplication()).setCurrentProd((Product) l.getItemAtPosition(position));
 		startActivity(intent);
 	}
 
