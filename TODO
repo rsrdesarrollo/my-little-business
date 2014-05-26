@@ -1,11 +1,12 @@
 * Actividad/Fragment detalle/actualización de producto (basado en diseño anterior).
-	+ TODO @rsrdesarrollo.
+	+ DOING @rsrdesarrollo.
 	
 * Adaptar los layouts.
 	+ Imágenes del mismo tamaño (incluso cuando no hay imagen).
 	+ Diseño responsive e independiente de resolución.
+	+ Warnings.
 	
-* Eventos de press y long press en ProductListActivity.
+* Evento de long press en ProductListActivity.
 
 * Actividad de estadísticas.
 	+ Producto más vendido.
@@ -20,6 +21,3 @@
 	
 * (Opcional) Activity about.
 	+ TODO @jgsojo.
-
-* La fantástica e inútil página de carga.
-	+ TODO @rsrdesarrollo.

@@ -44,6 +44,10 @@ public class MLBApplication extends Application {
 		return false;
 	}
 
+	public Product getCurrentProd() {
+		return currentProd;
+	}
+
 	public Product getProduct(String name) {
 		regenerateAttr();
 
@@ -70,6 +74,10 @@ public class MLBApplication extends Application {
 		}
 	}
 
+	public void setCurrentProd(Product currentProd) {
+		this.currentProd = currentProd;
+	}
+
 	public boolean updateProduct(Product prod) {
 		regenerateAttr();
 		
@@ -81,13 +89,5 @@ public class MLBApplication extends Application {
 		}
 		
 		return false;
-	}
-
-	public Product getCurrentProd() {
-		return currentProd;
-	}
-
-	public void setCurrentProd(Product currentProd) {
-		this.currentProd = currentProd;
 	}
 }
