@@ -99,16 +99,28 @@
             android:layout_marginRight="5dp"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/textStock"
-                style="@style/labelStyle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:text="@string/stock_label"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/textStock"
+                    style="@style/labelStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/stock_label"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textStockNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="999" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"

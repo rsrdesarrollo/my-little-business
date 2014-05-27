@@ -1,7 +1,7 @@
-* Actividad/Fragment detalle/actualización de producto (basado en diseño anterior).
+* Actividad detalle/actualización de producto.
 	+ DOING.
 	+ Warnings.
-	+ Implementar funcionalidad botones.
+	+ Implementar funcionalidad botones Add y Sell.
 	
 * Adaptar los layouts.
 	+ Imágenes del mismo tamaño (incluso cuando no hay imagen).

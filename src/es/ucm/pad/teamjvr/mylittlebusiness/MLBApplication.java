@@ -38,6 +38,10 @@ public class MLBApplication extends Application {
 		
 		if (db.deleteProduct(prod)) {
 			products.remove(prod.getName());
+			
+			if (prod.equals(currentProd))
+				currentProd = null;
+			
 			return true;
 		}
 
@@ -85,6 +89,10 @@ public class MLBApplication extends Application {
 		
 		if (db.updateProduct(prod)) {
 			products.put(prod.getName(), prod);
+			
+			if (prod.equals(currentProd))
+				currentProd = prod;
+			
 			return true;
 		}
 		

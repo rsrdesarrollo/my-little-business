@@ -71,11 +71,10 @@ public class AddProductActivity extends Activity implements
 					R.string.error_invalid_price, Toast.LENGTH_SHORT).show();
 			return;
 		}
-
-		
-		MLBApplication appl = (MLBApplication) getApplication();
 		
 		try {
+			MLBApplication appl = (MLBApplication) getApplication();
+			
 			if (!appl.addProduct(new Product(descript, stock, cost, price,
 					this.photo)))
 				Toast.makeText(getApplicationContext(),

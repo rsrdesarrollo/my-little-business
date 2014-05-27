@@ -31,6 +31,15 @@ public class Product {
 				imageBlob.length);
 	}
 
+	public Product(Product other) {
+		this.name = other.name;
+		this.stock = other.stock;
+		this.cost = other.cost;
+		this.price = other.price;
+		this.photo = other.photo;
+		this.boughtUnits = other.boughtUnits;
+	}
+	
 	public Product(String name, int stock, double cost, double price,
 			Bitmap photo) throws ProductAttrException {
 		if (stock < 0)
