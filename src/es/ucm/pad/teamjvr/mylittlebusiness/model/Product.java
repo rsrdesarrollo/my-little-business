@@ -1,4 +1,4 @@
-package es.ucm.pad.teamjvr.mylittlebusiness.Model;
+package es.ucm.pad.teamjvr.mylittlebusiness.model;
 
 import java.io.ByteArrayOutputStream;
 
@@ -7,7 +7,9 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import es.ucm.pad.teamjvr.mylittlebusiness.Model.DBAdapter.ProductsDBAdapter;
+import es.ucm.pad.teamjvr.mylittlebusiness.R;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
 public class Product {
 	private String name;
@@ -29,35 +31,20 @@ public class Product {
 				imageBlob.length);
 	}
 
-	public Product(Product prod) {
-		this.name = prod.name;
-		this.stock = prod.stock;
-		this.boughtUnits = prod.boughtUnits;
-		this.cost = prod.cost;
-		this.price = prod.price;
-		this.photo = prod.photo;
-	}
-
-	public Product(String name) {
-		this.name = name;
-		this.stock = 0;
-		this.boughtUnits = 0;
-		this.cost = 0;
-		this.price = 0;
-		this.photo = null;
-	}
-
-	public Product(String name, double cost, double price) {
-		this.name = name;
-		this.stock = 0;
-		this.boughtUnits = 0;
-		this.cost = cost;
-		this.price = price;
-		this.photo = null;
-	}
-
 	public Product(String name, int stock, double cost, double price,
-			Bitmap photo) {
+			Bitmap photo) throws ProductAttrException {
+		if (stock < 0)
+			throw new ProductAttrException(R.string.error_invalid_stock_or_too_large);
+
+		if (cost < 0)
+			throw new ProductAttrException(R.string.error_invalid_cost);
+
+		if (price < 0)
+			throw new ProductAttrException(R.string.error_invalid_price);
+		
+		if (name == null || name.equals(""))
+			throw new ProductAttrException(R.string.error_name_empty);
+		
 		this.name = name;
 		this.stock = stock;
 		this.boughtUnits = stock;
@@ -66,7 +53,10 @@ public class Product {
 		this.photo = photo;
 	}
 
-	public void addStock(int units) {
+	public void addStock(int units) throws ProductAttrException {
+		if (((stock+units) < 0) || ((boughtUnits + units) < 0))
+			throw new ProductAttrException(R.string.error_invalid_stock_or_too_large);
+		
 		this.stock += units;
 		this.boughtUnits += units;
 	}
@@ -130,15 +120,24 @@ public class Product {
 		return Integer.toString(stock);
 	}
 
-	public void sellUnits(int units) {
+	public void sellUnits(int units) throws ProductAttrException {
+		if ((stock-units) < 0)
+			throw new ProductAttrException(R.string.error_invalid_stock_or_too_large);
+		
 		this.stock -= units;
 	}
 
-	public void setCost(double cost) {
+	public void setCost(double cost) throws ProductAttrException {
+		if (cost < 0)
+			throw new ProductAttrException(R.string.error_invalid_cost);
+		
 		this.cost = cost;
 	}
 
-	public void setName(String name) {
+	public void setName(String name) throws ProductAttrException {
+		if (name == null || name.equals(""))
+			throw new ProductAttrException(R.string.error_name_empty);
+		
 		this.name = name;
 	}
 
@@ -146,11 +145,17 @@ public class Product {
 		this.photo = photo;
 	}
 
-	public final void setPrice(double price) {
+	public void setPrice(double price) throws ProductAttrException {
+		if (price < 0)
+			throw new ProductAttrException(R.string.error_invalid_price);
+		
 		this.price = price;
 	}
 
-	public void setStock(int stock) {
+	public void setStock(int stock) throws ProductAttrException {
+		if (stock < 0)
+			throw new ProductAttrException(R.string.error_invalid_stock_or_too_large);
+		
 		this.stock = stock;
 	}
 

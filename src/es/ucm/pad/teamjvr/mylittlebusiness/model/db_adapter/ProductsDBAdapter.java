@@ -1,4 +1,4 @@
-package es.ucm.pad.teamjvr.mylittlebusiness.Model.DBAdapter;
+package es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 
 public class ProductsDBAdapter {
 	private class ProductsDBHelper extends SQLiteOpenHelper {

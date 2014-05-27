@@ -13,9 +13,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 
-public class ProductDetailsActivity extends Activity {
+public class ProductDetailsActivity extends Activity implements
+OnClickListener {
 	private Product product;
 
 	private Button bttSave;
@@ -94,5 +95,11 @@ public class ProductDetailsActivity extends Activity {
 	 */
 	private void setupActionBar() {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		
 	}
 }

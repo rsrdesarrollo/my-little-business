@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 
 public class ProductListActivity extends ListActivity {
 	private class ProductAdapter extends ArrayAdapter<Product> {

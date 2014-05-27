@@ -15,7 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
 public class AddProductActivity extends Activity implements
 		OnClickListener {
@@ -48,9 +49,6 @@ public class AddProductActivity extends Activity implements
 
 		try {
 			stock = Integer.valueOf(txtStock.getText().toString());
-
-			if (stock < 0)
-				throw new NumberFormatException();
 		} catch (NumberFormatException e) {
 			Toast.makeText(getApplicationContext(),
 					R.string.error_invalid_stock_or_too_large,
@@ -60,9 +58,6 @@ public class AddProductActivity extends Activity implements
 
 		try {
 			cost = Double.valueOf(txtCost.getText().toString()).doubleValue();
-
-			if (cost < 0)
-				throw new NumberFormatException();
 		} catch (NumberFormatException e) {
 			Toast.makeText(getApplicationContext(),
 					R.string.error_invalid_cost, Toast.LENGTH_SHORT).show();
@@ -71,28 +66,29 @@ public class AddProductActivity extends Activity implements
 
 		try {
 			price = Double.valueOf(txtPrice.getText().toString()).doubleValue();
-
-			if (price < 0)
-				throw new NumberFormatException();
 		} catch (NumberFormatException e) {
 			Toast.makeText(getApplicationContext(),
 					R.string.error_invalid_price, Toast.LENGTH_SHORT).show();
 			return;
 		}
 
-		Log.i("AddProduct", "Description: '" + descript + "'");
 		
 		MLBApplication appl = (MLBApplication) getApplication();
 		
-		if (descript.equals(""))
-			Toast.makeText(getApplicationContext(), R.string.error_name_empty,
-					Toast.LENGTH_SHORT).show();
-		else if (!appl.addProduct(new Product(descript, stock, cost, price,
-				this.photo)))
+		try {
+			if (!appl.addProduct(new Product(descript, stock, cost, price,
+					this.photo)))
+				Toast.makeText(getApplicationContext(),
+						R.string.error_product_exist, Toast.LENGTH_SHORT).show();
+			else {
+				this.finish();
+				Log.i("AddProduct", "Description: '" + descript + "'");
+			}
+		} catch (ProductAttrException e) {
 			Toast.makeText(getApplicationContext(),
-					R.string.error_product_exist, Toast.LENGTH_SHORT).show();
-		else
-			this.finish();
+					e.getDetailMessageId(), Toast.LENGTH_SHORT).show();
+			return;
+		}
 	}
 
 	@Override
@@ -121,9 +117,7 @@ public class AddProductActivity extends Activity implements
 	}
 	
 	private void setupActionBar() {
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
 	}
 
 	@Override

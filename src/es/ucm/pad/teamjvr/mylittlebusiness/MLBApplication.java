@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Application;
-import es.ucm.pad.teamjvr.mylittlebusiness.Model.Product;
-import es.ucm.pad.teamjvr.mylittlebusiness.Model.DBAdapter.ProductsDBAdapter;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
 
 public class MLBApplication extends Application {
 	private ProductsDBAdapter db = null;
