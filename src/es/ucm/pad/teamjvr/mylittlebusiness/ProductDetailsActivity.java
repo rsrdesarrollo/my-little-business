@@ -17,8 +17,7 @@ import android.widget.Toast;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
-public class ProductDetailsActivity extends Activity implements
-OnClickListener {
+public class ProductDetailsActivity extends Activity implements OnClickListener {
 	private Product product;
 	private Product productEdited;
 
@@ -38,6 +37,44 @@ OnClickListener {
 	private ImageView prodImage;
 	private Bitmap photo;
 
+	/**
+	 * bttAdd action.
+	 */
+	private OnClickListener onbttAddClick() {
+		return new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					productEdited.addStock(Integer.valueOf(txtAdd.getText().toString()));
+					txtStockNum.setText(productEdited.getStock());
+				} catch (Exception e) {
+					Toast.makeText(getApplicationContext(),
+							R.string.error_stock_out_of_bounds, Toast.LENGTH_SHORT)
+							.show();
+				}
+			}
+		};
+	}
+	
+	/**
+	 * bttSell action.
+	 */
+	private OnClickListener onBttSellClick() {
+		return new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					productEdited.sellUnits(Integer.valueOf(txtSell.getText().toString()));
+					txtStockNum.setText(productEdited.getStock());
+				} catch (Exception e) {
+					Toast.makeText(getApplicationContext(),
+							R.string.error_there_are_not_enough, Toast.LENGTH_SHORT)
+							.show();
+				}
+			}
+		};
+	}
+	
 	/**
 	 * bttSave action.
 	 */
@@ -69,11 +106,6 @@ OnClickListener {
 		} catch (ProductAttrException e) {
 			Toast.makeText(getApplicationContext(), e.getDetailMessageId(),
 					Toast.LENGTH_SHORT).show();
-			productEdited = new Product(product);
-			return;
-		} catch (NullPointerException e) {
-			Toast.makeText(getApplicationContext(),
-					R.string.error_product_data, Toast.LENGTH_SHORT).show();
 			productEdited = new Product(product);
 			return;
 		}
@@ -125,8 +157,12 @@ OnClickListener {
 
 		this.txtAdd = (EditText) findViewById(R.id.units_to_add);
 		this.txtSell = (EditText) findViewById(R.id.units_to_sell);
+		
 		this.bttAdd = (Button) findViewById(R.id.btt_add_stock);
+		this.bttAdd.setOnClickListener(onbttAddClick());
+		
 		this.bttSell = (Button) findViewById(R.id.btt_sell_units);
+		this.bttSell.setOnClickListener(onBttSellClick());
 
 		// TODO Mostrar imagen
 
@@ -162,11 +198,19 @@ OnClickListener {
 		if ((prod_aux != null) && (!prod_aux.equals(product))) {
 			product = new Product(prod_aux);
 			productEdited = new Product(prod_aux);
-			txtName.setText(product.getName());
-			txtCost.setText(product.getCost());
-			txtPrice.setText(product.getPrice());
-			txtStockNum.setText(product.getStock());
+			setTexts();
+		} else if (product == null || productEdited == null) {
+			product = new Product();
+			productEdited = new Product(getResources().getText(R.string.name_label).toString());
+			setTexts();
 		}
+	}
+	
+	private void setTexts() {
+		txtName.setText(productEdited.getName());
+		txtCost.setText(productEdited.getCost());
+		txtPrice.setText(productEdited.getPrice());
+		txtStockNum.setText(productEdited.getStock());
 	}
 
 	/**

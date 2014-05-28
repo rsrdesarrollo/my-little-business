@@ -19,6 +19,10 @@ public class Product {
 	private int boughtUnits;
 	private Bitmap photo;
 
+	public Product() {
+		this("");
+	}
+
 	public Product(Cursor cursor) {
 		this.name = cursor.getString(ProductsDBAdapter.PROD_NAME_COL);
 		this.stock = cursor.getInt(ProductsDBAdapter.PROD_STOCK_COL);
@@ -30,7 +34,7 @@ public class Product {
 		this.photo = BitmapFactory.decodeByteArray(imageBlob, 0,
 				imageBlob.length);
 	}
-
+	
 	public Product(Product other) {
 		this.name = other.name;
 		this.stock = other.stock;
@@ -39,7 +43,16 @@ public class Product {
 		this.photo = other.photo;
 		this.boughtUnits = other.boughtUnits;
 	}
-	
+
+	public Product(String name) {
+		this.name = name;
+		this.stock = 0;
+		this.cost = 0;
+		this.price = 0;
+		this.photo = null;
+		this.boughtUnits = 0;
+	}
+
 	public Product(String name, int stock, double cost, double price,
 			Bitmap photo) throws ProductAttrException {
 		if (stock < 0)
