@@ -115,6 +115,23 @@ public class AddProductActivity extends Activity implements
 		setupActionBar();
 	}
 	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable("photo", this.photo);
+		super.onSaveInstanceState(outState);
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		this.photo = savedInstanceState.getParcelable("photo");
+		
+		if(this.photo != null){
+			this.prodImage.setImageBitmap(this.photo);
+		}
+		super.onResume();
+		super.onRestoreInstanceState(savedInstanceState);
+	}
+	
 	private void setupActionBar() {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
