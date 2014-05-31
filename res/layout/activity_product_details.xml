@@ -4,18 +4,43 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/prodImageExtCont"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
 
-        <TextView
-            style="@style/title_style"
-            android:layout_width="fill_parent"
+        <ImageView
+            android:id="@+id/prod_det_exp_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
+        
+        <LinearLayout
+            android:id="@+id/linear_prod_info"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/product_info"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
+            android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/prod_det_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <TextView
+                style="@style/title_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/product_info"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -198,6 +223,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="bottom|center_horizontal" >
@@ -209,7 +240,13 @@
                 android:layout_margin="10dp"
                 android:text="@string/save"
                 android:width="100dp" />
+
         </LinearLayout>
+
     </LinearLayout>
+        
+    </RelativeLayout>
+
+    
 
 </ScrollView>
