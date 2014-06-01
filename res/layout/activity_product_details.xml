@@ -13,13 +13,17 @@
             android:id="@+id/prod_det_exp_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible" />
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@android:drawable/ic_menu_gallery"
+            android:visibility="gone" />
         
         <LinearLayout
             android:id="@+id/linear_prod_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="visible"  >
 
         <LinearLayout
             android:layout_width="match_parent"

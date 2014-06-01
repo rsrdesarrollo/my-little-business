@@ -1,12 +1,6 @@
 package es.ucm.pad.teamjvr.mylittlebusiness;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
@@ -14,10 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 import android.widget.Toast;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
@@ -42,7 +36,6 @@ public class ProductDetailsActivity extends Activity implements OnClickListener 
 
 	private ImageView prodImage;
 	private ImageView prodExtImage;
-	private Animator prodImageAnim;
 
 	/**
 	 * bttAdd action.
@@ -80,135 +73,6 @@ public class ProductDetailsActivity extends Activity implements OnClickListener 
 				}
 			}
 		};
-	}
-	
-	private OnClickListener zoomImageFromThumb() {
-		return new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				findViewById(R.id.linear_prod_info).setVisibility(View.GONE);
-				if (prodImageAnim != null)
-					prodImageAnim.cancel();
-
-				final Rect startBounds = new Rect();
-				final Rect finalBounds = new Rect();
-				final Point globalOffset = new Point();
-
-				prodImage.getGlobalVisibleRect(startBounds);
-				findViewById(R.id.prodImageExtCont).getGlobalVisibleRect(
-						finalBounds, globalOffset);
-				startBounds.offset(-globalOffset.x, -globalOffset.y);
-				finalBounds.offset(-globalOffset.x, -globalOffset.y);
-
-				float startScale;
-				if ((float) finalBounds.width() / finalBounds.height() > (float) startBounds
-						.width() / startBounds.height()) {
-					// Extend start bounds horizontally
-					startScale = (float) startBounds.height()
-							/ finalBounds.height();
-					float startWidth = startScale * finalBounds.width();
-					float deltaWidth = (startWidth - startBounds.width()) / 2;
-					startBounds.left -= deltaWidth;
-					startBounds.right += deltaWidth;
-				} else {
-					// Extend start bounds vertically
-					startScale = (float) startBounds.width()
-							/ finalBounds.width();
-					float startHeight = startScale * finalBounds.height();
-					float deltaHeight = (startHeight - startBounds.height()) / 2;
-					startBounds.top -= deltaHeight;
-					startBounds.bottom += deltaHeight;
-				}
-
-				prodImage.setAlpha(0f);
-				prodExtImage.setVisibility(View.VISIBLE);
-
-				// Set the pivot point for SCALE_X and SCALE_Y transformations
-				// to the top-left corner of the zoomed-in view (the default
-				// is the center of the view).
-				prodExtImage.setPivotX(0f);
-				prodExtImage.setPivotY(0f);
-
-				// Construct and run the parallel animation of the four
-				// translation and
-				// scale properties (X, Y, SCALE_X, and SCALE_Y).
-				AnimatorSet set = new AnimatorSet();
-				set.play(
-						ObjectAnimator.ofFloat(prodExtImage, View.X,
-								startBounds.left, finalBounds.left))
-						.with(ObjectAnimator.ofFloat(prodExtImage, View.Y,
-								startBounds.top, finalBounds.top))
-						.with(ObjectAnimator.ofFloat(prodExtImage,
-								View.SCALE_X, startScale, 1f))
-						.with(ObjectAnimator.ofFloat(prodExtImage,
-								View.SCALE_Y, startScale, 1f));
-				set.setDuration(getResources().getInteger(
-						android.R.integer.config_shortAnimTime));
-				set.setInterpolator(new DecelerateInterpolator());
-				set.addListener(new AnimatorListenerAdapter() {
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						prodImageAnim = null;
-					}
-
-					@Override
-					public void onAnimationCancel(Animator animation) {
-						prodImageAnim = null;
-					}
-				});
-				set.start();
-				prodImageAnim = set;
-
-				// Upon clicking the zoomed-in image, it should zoom back down
-				// to the original bounds and show the thumbnail instead of
-				// the expanded image.
-				final float startScaleFinal = startScale;
-				prodExtImage.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						if (prodImageAnim != null) {
-							prodImageAnim.cancel();
-						}
-
-						// Animate the four positioning/sizing properties in
-						// parallel,
-						// back to their original values.
-						AnimatorSet set = new AnimatorSet();
-						set.play(
-								ObjectAnimator.ofFloat(prodExtImage, View.X,
-										startBounds.left))
-								.with(ObjectAnimator.ofFloat(prodExtImage,
-										View.Y, startBounds.top))
-								.with(ObjectAnimator.ofFloat(prodExtImage,
-										View.SCALE_X, startScaleFinal))
-								.with(ObjectAnimator.ofFloat(prodExtImage,
-										View.SCALE_Y, startScaleFinal));
-						set.setDuration(getResources().getInteger(
-								android.R.integer.config_shortAnimTime));
-						set.setInterpolator(new DecelerateInterpolator());
-						set.addListener(new AnimatorListenerAdapter() {
-							@Override
-							public void onAnimationEnd(Animator animation) {
-								prodImage.setAlpha(1f);
-								prodExtImage.setVisibility(View.GONE);
-								prodImageAnim = null;
-								findViewById(R.id.linear_prod_info).setVisibility(View.VISIBLE);
-							}
-
-							@Override
-							public void onAnimationCancel(Animator animation) {
-								prodImage.setAlpha(1f);
-								prodExtImage.setVisibility(View.GONE);
-								prodImageAnim = null;
-							}
-						});
-						set.start();
-						prodImageAnim = set;
-					}
-				});
-			}
-		};
-
 	}
 	
 	/**
@@ -303,10 +167,11 @@ public class ProductDetailsActivity extends Activity implements OnClickListener 
 		this.prodImage = (ImageView) findViewById(R.id.prod_det_image);
 		this.prodImage.setOnClickListener(zoomImageFromThumb());
 		this.prodExtImage = (ImageView) findViewById(R.id.prod_det_exp_image);
+		this.prodExtImage.setOnClickListener(zoomOutImage());
 
 		regenerateProductAttr();
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -343,7 +208,7 @@ public class ProductDetailsActivity extends Activity implements OnClickListener 
 			setUI();
 		}
 	}
-	
+
 	private void setUI() {
 		txtName.setText(productEdited.getName());
 		txtCost.setText(productEdited.getCost());
@@ -354,6 +219,10 @@ public class ProductDetailsActivity extends Activity implements OnClickListener 
 			prodImage.setImageBitmap(productEdited.getPhoto());
 			prodExtImage.setImageBitmap(productEdited.getPhoto());
 		}
+		
+		prodExtImage.setScaleType(ScaleType.FIT_XY);
+		prodExtImage.setAdjustViewBounds(false);
+		prodExtImage.setAdjustViewBounds(true);
 	}
 
 	/**
@@ -361,5 +230,25 @@ public class ProductDetailsActivity extends Activity implements OnClickListener 
 	 */
 	private void setupActionBar() {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+	
+	private OnClickListener zoomImageFromThumb() {
+		return new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				findViewById(R.id.linear_prod_info).setVisibility(View.GONE);
+				prodExtImage.setVisibility(View.VISIBLE);
+			}
+		};
+	}
+
+	private OnClickListener zoomOutImage() {
+		return new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				prodExtImage.setVisibility(View.GONE);
+				findViewById(R.id.linear_prod_info).setVisibility(View.VISIBLE);
+			}
+		};
 	}
 }
