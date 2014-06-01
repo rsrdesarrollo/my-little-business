@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
-public class SplashActivity extends Activity implements Runnable {
+public class SplashActivity extends Activity implements Runnable, OnClickListener {
 	AnimationDrawable loadingAnimation;
 	ImageView loadingBar;
+	Handler handler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +22,10 @@ public class SplashActivity extends Activity implements Runnable {
 		loadingBar = (ImageView) findViewById(R.id.imgLoading);
 		loadingBar.setBackgroundResource(R.xml.loading);
 		loadingAnimation = (AnimationDrawable) loadingBar.getBackground();
+		findViewById(R.id.linear_splash).setOnClickListener(this);
 
-		Handler handler = new Handler();
-		handler.postDelayed(this, 2500);
+		this.handler = new Handler();
+		this.handler.postDelayed(this, 2500);
 	}
 
 	@Override
@@ -35,5 +39,11 @@ public class SplashActivity extends Activity implements Runnable {
 		loadingAnimation.stop();
 		startActivity(new Intent(getApplication(), ProductListActivity.class));
 		this.finish();
+	}
+
+	@Override
+	public void onClick(View v) {
+		handler.removeCallbacks(this);
+		run();
 	}
 }
