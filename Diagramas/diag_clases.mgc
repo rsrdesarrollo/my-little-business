@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter.ProductsDBHelper"
+        x="402" y="503">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.ProductDetailsActivity"
+        x="781" y="432">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
+            endpointName="product" kind="Simple"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
+            endpointName="productEdited" kind="Simple">
+            <Point x="1095" y="530"/>
+            <Point x="1105" y="204"/>
+        </Association>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException"
+        x="50" y="525">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="es.ucm.pad.teamjvr.mylittlebusiness.SplashActivity"
+        x="47" y="287">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity"
+        x="48" y="420">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
+    </Class>
+    <Class name="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
+        x="832" y="72">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="es.ucm.pad.teamjvr.mylittlebusiness.AddProductActivity"
+        x="46" y="106">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity.ProductAdapter"
+        x="691" y="304">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
+            endpointName="items" kind="Simple"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
+        x="423" y="305">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter.ProductsDBHelper"
+            endpointName="dbHelper" kind="Simple"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter.ProductsDBHelper"/>
+    </Class>
+    <Class name="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"
+        x="414" y="96">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
+            endpointName="db" kind="Simple"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
+            endpointName="currentProd" kind="Simple">
+            <Point x="731" y="201"/>
+        </Association>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
+            endpointName="products" kind="Simple">
+            <Point x="729" y="111"/>
+        </Association>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"/>
+    </Class>
+</ClassDiagram>
