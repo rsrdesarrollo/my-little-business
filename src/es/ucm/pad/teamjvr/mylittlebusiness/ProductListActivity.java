@@ -1,5 +1,6 @@
 package es.ucm.pad.teamjvr.mylittlebusiness;
 
+import java.text.AttributedString;
 import java.util.List;
 
 import android.app.ActionBar.LayoutParams;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -60,23 +62,21 @@ public class ProductListActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		this.db = new ProductsDBAdapter(this);
 		this.db.open();
-
-		// Create a progress bar to display while the list loads
-		String emptyMsg = getResources().getString(R.string.empty_list);
-		TextView textMsg = new TextView(this);
-		textMsg.setText(emptyMsg);
-		textMsg.setLayoutParams(new LayoutParams(
-				android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-				android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
-				Gravity.CENTER));
+		
+		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+		
+		View emptyList = inflater.inflate(R.layout.empty_list, null);
 		ListView lv = getListView();
 		
-		lv.setEmptyView(textMsg);
+		lv.setEmptyView(emptyList);
 		lv.setOnItemLongClickListener(onListItemLongClick);
+		
+		
+		
 
 		// Must add the progress bar to the root of the layout
 		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
-		root.addView(textMsg);		
+		root.addView(emptyList);		
 	}
 	
 	@Override
