@@ -3,8 +3,10 @@ package es.ucm.pad.teamjvr.mylittlebusiness;
 import java.util.List;
 
 import android.app.ActionBar.LayoutParams;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,50 +21,36 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 
 public class ProductListActivity extends ListActivity {
-	private class ProductAdapter extends ArrayAdapter<Product> {
-		private List<Product> items;
-		private LayoutInflater inflater;
-
-		public ProductAdapter(Context context, int resource,
-				List<Product> products) {
-			super(context, resource, products);
-			this.items = products;
-			this.inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View vi = convertView;
-			if (convertView == null)
-				vi = inflater.inflate(R.layout.list_item_product, null);
-
-			TextView name = (TextView) vi.findViewById(R.id.nameItemText);
-			TextView stock = (TextView) vi.findViewById(R.id.stockItemText);
-			ImageView photo = (ImageView) vi.findViewById(R.id.photoItemImage);
-
-			Product item = items.get(position);
-
-			if (item != null) {
-				name.setText(item.getName());
-				stock.setText(item.getStock());
-				
-				if (item.getPhoto() != null)
-					photo.setImageBitmap(item.getPhoto());
-			}
-
-			return vi;
-		}
-	}
 	
-	private void regenerateProductsList() {
-		List<Product> products = ((MLBApplication) getApplication()).productList();
-		getListView().setAdapter(
-				new ProductAdapter(this, android.R.layout.simple_list_item_1,
-						products));
+	private OnItemLongClickListener onListItemLongClick = new OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View v, int pos, long id) {
+        	final ListView l = (ListView)parent;
+        	final int position = pos;
+        	
+            new AlertDialog.Builder(ProductListActivity.this)
+            	.setIcon(android.R.drawable.ic_dialog_alert)
+            	.setTitle(R.string.delete_item)
+            	.setMessage(R.string.delete_item_confrm_msg)
+            	.setNegativeButton(android.R.string.cancel, null)
+            	.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						MLBApplication app = (MLBApplication) getApplication();
+						app.deleteProduct((Product)l.getItemAtPosition(position));
+						
+						regenerateProductsList();
+						
+					}
+				})
+				.show();
+            
+            return true;
+        }
 	};
 	
 	@Override
@@ -80,7 +68,7 @@ public class ProductListActivity extends ListActivity {
 		ListView lv = getListView();
 		
 		lv.setEmptyView(textMsg);
-		lv.setOnItemLongClickListener(onListItemLongClick());
+		lv.setOnItemLongClickListener(onListItemLongClick);
 
 		// Must add the progress bar to the root of the layout
 		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
@@ -88,22 +76,10 @@ public class ProductListActivity extends ListActivity {
 		
 		regenerateProductsList();
 	}
-
-	private OnItemLongClickListener onListItemLongClick() {
-		return new OnItemLongClickListener() {
-	        @Override
-	        public boolean onItemLongClick(AdapterView<?> arg0, View v,
-	                int position, long id) {
-	        	// TODO Auto-generated method stub
-	            Toast.makeText(getApplicationContext(), "Long Clicked : " + id, Toast.LENGTH_SHORT).show();
-	            return true;
-	        }
-		};
-	}
 	
+
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
 		Intent intent = new Intent(this, ProductDetailsActivity.class);
 		((MLBApplication) getApplication()).setCurrentProd((Product) l.getItemAtPosition(position));
 		startActivity(intent);
@@ -136,5 +112,44 @@ public class ProductListActivity extends ListActivity {
 	protected void onResume() {
 		super.onResume();
 		regenerateProductsList();
+	}
+	
+	private void regenerateProductsList() {
+		List<Product> products = ((MLBApplication) getApplication()).productList();
+		getListView().setAdapter(new ProductAdapter(this, android.R.layout.simple_list_item_1, products));
+	};
+	
+	private class ProductAdapter extends ArrayAdapter<Product> {
+		private List<Product> items;
+		private LayoutInflater inflater;
+
+		public ProductAdapter(Context context, int resource, List<Product> products) {
+			super(context, resource, products);
+			this.items = products;
+			this.inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View vi = convertView;
+			if (convertView == null)
+				vi = inflater.inflate(R.layout.list_item_product, null);
+
+			TextView name = (TextView) vi.findViewById(R.id.nameItemText);
+			TextView stock = (TextView) vi.findViewById(R.id.stockItemText);
+			ImageView photo = (ImageView) vi.findViewById(R.id.photoItemImage);
+
+			Product item = items.get(position);
+
+			if (item != null) {
+				name.setText(item.getName());
+				stock.setText(item.getStock());
+				
+				if (item.getPhoto() != null)
+					photo.setImageBitmap(item.getPhoto());
+			}
+
+			return vi;
+		}
 	}
 }

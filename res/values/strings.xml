@@ -17,6 +17,7 @@
     <string name="error_product_data">Error in product data</string>
     <string name="error_name_empty">Name field can not be empty</string>
     <string name="delete_item">Delete item</string>
+    <string name="delete_item_confrm_msg">Sure you want to delete this item?</string>
     <string name="edit_item">Edit item</string>
     <string name="new_item">New item</string>
     <string name="preferences">Preferences</string>
