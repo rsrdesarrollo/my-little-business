@@ -17,7 +17,7 @@ import android.widget.Toast;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
-public class ProductDetailsActivity extends Activity implements OnClickListener {
+public class ProductDetailsActivity extends Activity {
 	private Product product;
 	private Product productEdited;
 
@@ -40,105 +40,105 @@ public class ProductDetailsActivity extends Activity implements OnClickListener 
 	/**
 	 * bttAdd action.
 	 */
-	private OnClickListener onbttAddClick() {
-		return new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				try {
-					productEdited.addStock(Integer.valueOf(txtAdd.getText().toString()));
-					txtStockNum.setText(productEdited.getStock());
-				} catch (Exception e) {
-					Toast.makeText(getApplicationContext(),
-							R.string.error_stock_out_of_bounds, Toast.LENGTH_SHORT)
-							.show();
-				}
+	private OnClickListener onbttAddClick = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			try {
+				productEdited.addStock(Integer.valueOf(txtAdd.getText().toString()));
+				txtStockNum.setText(productEdited.getStock());
+			} catch (Exception e) {
+				Toast.makeText(getApplicationContext(),
+						R.string.error_stock_out_of_bounds, Toast.LENGTH_SHORT)
+						.show();
 			}
-		};
-	}
-	
+		}
+	};
+
 	/**
 	 * bttSell action.
 	 */
-	private OnClickListener onBttSellClick() {
-		return new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				try {
-					productEdited.sellUnits(Integer.valueOf(txtSell.getText().toString()));
-					txtStockNum.setText(productEdited.getStock());
-				} catch (Exception e) {
-					Toast.makeText(getApplicationContext(),
-							R.string.error_there_are_not_enough, Toast.LENGTH_SHORT)
-							.show();
-				}
+	private OnClickListener onBttSellClick = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			try {
+				productEdited.sellUnits(Integer.valueOf(txtSell.getText().toString()));
+				txtStockNum.setText(productEdited.getStock());
+			} catch (Exception e) {
+				Toast.makeText(getApplicationContext(),
+						R.string.error_there_are_not_enough, Toast.LENGTH_SHORT)
+						.show();
 			}
-		};
-	}
+		}
+	};
+
 	
 	/**
 	 * bttSave action.
 	 */
-	@Override
-	public void onClick(View v) {
-		String descript = txtName.getText().toString();
-		double cost, price;
-
-		try {
-			cost = Double.valueOf(txtCost.getText().toString()).doubleValue();
-		} catch (NumberFormatException e) {
-			Toast.makeText(getApplicationContext(),
-					R.string.error_invalid_cost, Toast.LENGTH_SHORT).show();
-			return;
-		}
-
-		try {
-			price = Double.valueOf(txtPrice.getText().toString()).doubleValue();
-		} catch (NumberFormatException e) {
-			Toast.makeText(getApplicationContext(),
-					R.string.error_invalid_price, Toast.LENGTH_SHORT).show();
-			return;
-		}
-
-		try {
-			productEdited.setCost(cost);
-			productEdited.setPrice(price);
-			productEdited.setName(descript);
-		} catch (ProductAttrException e) {
-			Toast.makeText(getApplicationContext(), e.getDetailMessageId(),
-					Toast.LENGTH_SHORT).show();
-			productEdited = new Product(product);
-			return;
-		}
-
-		MLBApplication appl = (MLBApplication) getApplication();
-
-		if (productEdited.equals(product)) {
-			if (!appl.updateProduct(productEdited)) {
+	private OnClickListener onBttSaveClick = new OnClickListener() {
+		
+			@Override
+		public void onClick(View v) {
+			String descript = txtName.getText().toString();
+			double cost, price;
+	
+			try {
+				cost = Double.valueOf(txtCost.getText().toString()).doubleValue();
+			} catch (NumberFormatException e) {
 				Toast.makeText(getApplicationContext(),
-						R.string.error_product_data, Toast.LENGTH_SHORT).show();
-				productEdited = new Product(product);
-			} else {
-				regenerateProductAttr();
-				this.finish();
-				Log.i("SavedProduct", "Description: '" + descript + "'");
+						R.string.error_invalid_cost, Toast.LENGTH_SHORT).show();
+				return;
 			}
-		} else {
-			if (!appl.addProduct(productEdited)) {
+	
+			try {
+				price = Double.valueOf(txtPrice.getText().toString()).doubleValue();
+			} catch (NumberFormatException e) {
 				Toast.makeText(getApplicationContext(),
-						R.string.error_product_exist, Toast.LENGTH_SHORT)
-						.show();
+						R.string.error_invalid_price, Toast.LENGTH_SHORT).show();
+				return;
+			}
+	
+			try {
+				productEdited.setCost(cost);
+				productEdited.setPrice(price);
+				productEdited.setName(descript);
+			} catch (ProductAttrException e) {
+				Toast.makeText(getApplicationContext(), e.getDetailMessageId(),
+						Toast.LENGTH_SHORT).show();
 				productEdited = new Product(product);
+				return;
+			}
+	
+			MLBApplication appl = (MLBApplication) getApplication();
+	
+			if (productEdited.equals(product)) {
+				if (!appl.updateProduct(productEdited)) {
+					Toast.makeText(getApplicationContext(),
+							R.string.error_product_data, Toast.LENGTH_SHORT).show();
+					productEdited = new Product(product);
+				} else {
+					regenerateProductAttr();
+					finish();
+					Log.i("SavedProduct", "Description: '" + descript + "'");
+				}
 			} else {
-				Log.i("SavedAndRenamedProduct", "Description: '" + product
-						+ "'" + " ->'" + descript + "'");
-				appl.deleteProduct(product);
-				appl.setCurrentProd(productEdited);
-				regenerateProductAttr();
-				this.finish();
+				if (!appl.addProduct(productEdited)) {
+					Toast.makeText(getApplicationContext(),
+							R.string.error_product_exist, Toast.LENGTH_SHORT)
+							.show();
+					productEdited = new Product(product);
+				} else {
+					Log.i("SavedAndRenamedProduct", "Description: '" + product
+							+ "'" + " ->'" + descript + "'");
+					appl.deleteProduct(product);
+					appl.setCurrentProd(productEdited);
+					regenerateProductAttr();
+					finish();
+				}
 			}
 		}
-	}
-
+	};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -147,7 +147,7 @@ public class ProductDetailsActivity extends Activity implements OnClickListener 
 		setupActionBar();
 
 		this.bttSave = (Button) findViewById(R.id.bttSaveItem);
-		this.bttSave.setOnClickListener(this);
+		this.bttSave.setOnClickListener(onBttSaveClick);
 		
 		this.txtStockNum = (TextView) findViewById(R.id.textStockNum);
 		
@@ -159,10 +159,10 @@ public class ProductDetailsActivity extends Activity implements OnClickListener 
 		this.txtSell = (EditText) findViewById(R.id.units_to_sell);
 		
 		this.bttAdd = (Button) findViewById(R.id.btt_add_stock);
-		this.bttAdd.setOnClickListener(onbttAddClick());
+		this.bttAdd.setOnClickListener(onbttAddClick);
 		
 		this.bttSell = (Button) findViewById(R.id.btt_sell_units);
-		this.bttSell.setOnClickListener(onBttSellClick());
+		this.bttSell.setOnClickListener(onBttSellClick);
 
 		this.prodImage = (ImageView) findViewById(R.id.prod_det_image);
 		this.prodImage.setOnClickListener(zoomImageFromThumb());

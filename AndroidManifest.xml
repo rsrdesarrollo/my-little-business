@@ -35,7 +35,8 @@
         </activity>
         <activity
             android:name="es.ucm.pad.teamjvr.mylittlebusiness.ProductDetailsActivity"
-            android:label="@string/title_activity_product_details" >
+            android:label="@string/title_activity_product_details"
+            android:windowSoftInputMode="stateUnchanged" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity" />

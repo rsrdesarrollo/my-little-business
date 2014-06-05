@@ -7,9 +7,10 @@
     <RelativeLayout
         android:id="@+id/prodImageExtCont"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content" >
 
         <ImageView
+            android:contentDescription="@string/image_product_content_description"
             android:id="@+id/prod_det_exp_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content" >
 
             <ImageView
+                android:contentDescription="@string/image_product_content_description"
                 android:id="@+id/prod_det_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -140,14 +142,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="@string/stock_label"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textStockNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="999" />
+                    android:text="@string/stock_label" />
 
             </LinearLayout>
 
@@ -176,7 +178,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:inputType="number"
-                        android:text="1" />
+                        android:text="@string/defaul_add_sell_value" />
 
                     <Button
                         android:id="@+id/btt_add_stock"
@@ -213,7 +215,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:inputType="number"
-                        android:text="1" />
+                        android:text="@string/defaul_add_sell_value" />
 
                     <Button
                         android:id="@+id/btt_sell_units"
@@ -226,11 +228,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
