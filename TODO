@@ -7,8 +7,6 @@
 	+ Diseño responsive e independiente de resolución.
 	+ Warnings.
 	
-* Evento de long press en ProductListActivity.
-
 * Actividad de estadísticas.
 	+ Producto más vendido.
 	+ Producto que ha aportado más beneficio.
@@ -22,3 +20,6 @@
 	
 * (Opcional) Activity about.
 	+ TODO @jgsojo.
+	
+DONE: 
+ --* Evento de long press en ProductListActivity.

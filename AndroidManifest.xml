@@ -12,10 +12,12 @@
         android:name="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name" 
+        android:theme="@android:style/Theme.Holo" >
         <activity
             android:name="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity"
-            android:label="@string/title_activity_product_list" >
+            android:label="@string/title_activity_product_list"
+             >
         </activity>
         <activity
             android:name="es.ucm.pad.teamjvr.mylittlebusiness.AddProductActivity"

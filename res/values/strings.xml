@@ -39,5 +39,7 @@
     <string name="title_activity_product_details">Product details</string>
     <string name="defaul_add_sell_value">1</string>
     <string name="image_product_content_description">Product image</string>
+    <string name="action_about">About</string>
+    <string name="action_stats">Stats</string>
 
 </resources>

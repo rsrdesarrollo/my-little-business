@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,7 @@ public class ProductListActivity extends ListActivity {
 		root.addView(textMsg);
 		
 		regenerateProductsList();
+		
 	}
 	
 
@@ -88,8 +90,9 @@ public class ProductListActivity extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.product_list, menu);
-		return true;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.product_list, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -98,9 +101,21 @@ public class ProductListActivity extends ListActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
-			case R.id.addItem: {
+			case R.id.action_addItem: {
 				Intent intent = new Intent(this, AddProductActivity.class);
 				startActivity(intent);
+			}
+			
+			case R.id.action_settings:{
+				//TODO: Añadir actividad de opciones
+			}
+			
+			case R.id.action_about: {
+				//TODO: Añadir actividad de about
+			}
+			
+			case R.id.action_stats: {
+				//TODO: Añadir actividad de estadísticas
 			}
 				
 			default:
