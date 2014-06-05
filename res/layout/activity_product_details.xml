@@ -88,7 +88,7 @@
                             style="@style/labelStyle"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/price_label" />
+                            android:text="@string/price_hint" />
 
                         <EditText
                             android:id="@+id/edit_prod_price"
@@ -109,7 +109,7 @@
                             style="@style/labelStyle"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/cost_label" />
+                            android:text="@string/cost_hint" />
 
                         <EditText
                             android:id="@+id/edit_prod_cost"
@@ -141,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="@string/stock_label"
+                    android:text="@string/stock_hint"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -149,7 +149,7 @@
                     android:id="@+id/textStockNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/stock_label" />
+                    android:text="@string/stock_hint" />
 
             </LinearLayout>
 

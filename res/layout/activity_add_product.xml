@@ -27,7 +27,7 @@
                     android:id="@+id/nameNewText"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="100"
                     android:ems="10"
                     android:hint="@string/name_label" />
 
@@ -35,28 +35,21 @@
                     android:id="@+id/prodImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="10"
                     android:contentDescription="@string/add_new_image_descript"
                     android:src="@android:drawable/ic_menu_camera" />
             </LinearLayout>
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/stockNewText"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:orientation="vertical" >
+                android:ems="10"
+                android:hint="@string/stock_hint"
+                android:inputType="number" >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stock_label" />
-
-                <EditText
-                    android:id="@+id/stockNewText"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-            </LinearLayout>
+                <requestFocus />
+            </EditText>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -64,42 +57,25 @@
                 android:baselineAligned="false"
                 android:orientation="horizontal" >
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/price_label" />
-
-                    <EditText
-                        android:id="@+id/priceNewText"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <EditText
+                    android:id="@+id/costNewText"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical" >
+                    android:ems="10"
+                    android:hint="@string/cost_hint"
+                    android:inputType="numberDecimal" />
 
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/cost_label" />
-
-                    <EditText
-                        android:id="@+id/costNewText"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
-                </LinearLayout>
+                <EditText
+                    android:id="@+id/priceNewText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/price_hint"
+                    android:inputType="numberDecimal" />
             </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout

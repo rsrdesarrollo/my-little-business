@@ -21,10 +21,12 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 
-public class ProductListActivity extends ListActivity {
+public class ProductListActivity extends ListActivity implements SearchView.OnQueryTextListener{
 	
 	private OnItemLongClickListener onListItemLongClick = new OnItemLongClickListener() {
         @Override
@@ -91,7 +93,17 @@ public class ProductListActivity extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.product_list, menu);
+		inflater.inflate(R.menu.product_list_menu, menu);
+		
+		SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();	
+		
+//		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//		if (null != searchManager) {
+//			searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//		}
+	
+		searchView.setOnQueryTextListener(this);
+		
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -167,4 +179,18 @@ public class ProductListActivity extends ListActivity {
 			return vi;
 		}
 	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+		return false;
+	}
+
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		// TODO Auto-generated method stub
+		Toast.makeText(this, "Query: "+query, 2).show();;
+		return true;
+	}
+
 }

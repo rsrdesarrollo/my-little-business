@@ -8,7 +8,7 @@
     <string name="title_activity_add_product">Add product</string>
     <string name="product_info">Product info</string>
     <string name="name_label">Name</string>
-    <string name="stock_label">Stock:</string>
+    <string name="stock_hint">Stock</string>
     <string name="add_item_label">Add items:</string>
     <string name="save">Save</string>
     <string name="sell_item_btt">Sell</string>
@@ -28,8 +28,8 @@
     <string name="by_sales">By sales</string>
     <string name="by_benefits">By benefits</string>
     <string name="sort">Sort</string>
-    <string name="cost_label">Cost:</string>
-    <string name="price_label">Price:</string>
+    <string name="cost_hint">Cost</string>
+    <string name="price_hint">Price</string>
     <string name="error_invalid_cost">Sorry, the cost is not valid</string>
     <string name="error_invalid_price">Sorry, the price is not valid</string>
     <string name="add_btt">Add</string>
