@@ -13,8 +13,6 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -25,23 +23,27 @@
 
                 <EditText
                     android:id="@+id/nameNewText"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="100"
+                    style="@style/inputBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="30"
                     android:ems="10"
-                    android:hint="@string/name_label" />
+                    android:hint="@string/name_hint" />
 
                 <ImageView
                     android:id="@+id/prodImage"
+                    style="@style/productImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
+                    android:layout_weight="70"
                     android:contentDescription="@string/add_new_image_descript"
                     android:src="@android:drawable/ic_menu_camera" />
+
             </LinearLayout>
 
             <EditText
                 android:id="@+id/stockNewText"
+                style="@style/inputBox"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -59,6 +61,7 @@
 
                 <EditText
                     android:id="@+id/costNewText"
+                    style="@style/inputBox"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -68,12 +71,14 @@
 
                 <EditText
                     android:id="@+id/priceNewText"
+                    style="@style/inputBox"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="@string/price_hint"
                     android:inputType="numberDecimal" />
+
             </LinearLayout>
 
         </LinearLayout>

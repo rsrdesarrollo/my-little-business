@@ -7,7 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_product">Add product</string>
     <string name="product_info">Product info</string>
-    <string name="name_label">Name</string>
+    <string name="name_hint">Name</string>
     <string name="stock_hint">Stock</string>
     <string name="add_item_label">Add items:</string>
     <string name="save">Save</string>

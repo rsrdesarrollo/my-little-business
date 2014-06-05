@@ -10,244 +10,206 @@
         android:layout_height="wrap_content" >
 
         <ImageView
-            android:contentDescription="@string/image_product_content_description"
             android:id="@+id/prod_det_exp_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/image_product_content_description"
             android:scaleType="fitXY"
             android:src="@android:drawable/ic_menu_gallery"
             android:visibility="gone" />
-        
+
         <LinearLayout
             android:id="@+id/linear_prod_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible"  >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:contentDescription="@string/image_product_content_description"
-                android:id="@+id/prod_det_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:src="@android:drawable/ic_menu_gallery" />
-
-            <TextView
-                style="@style/title_style"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/product_info"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:orientation="vertical" >
-
-            <TextView
-                style="@style/labelStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/name_label" />
-
-            <EditText
-                android:id="@+id/edit_prod_name"
-                style="@style/txt_fieldStyle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+            android:visibility="visible" >
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical" >
 
                 <LinearLayout
-                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <ImageView
+                        android:id="@+id/prod_det_image"
+                        style="@style/productImage"
+                        android:layout_weight="70"
+                        android:src="@android:drawable/ic_menu_gallery" />
+
+                    <EditText
+                        android:id="@+id/edit_prod_name"
+                        style="@style/inputBox"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:ems="10"
+                        android:hint="@string/name_hint" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal" >
+                    android:layout_height="wrap_content" >
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical" >
-
-                        <TextView
-                            style="@style/labelStyle"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/price_hint" />
+                        android:baselineAligned="false"
+                        android:orientation="horizontal" >
 
                         <EditText
                             android:id="@+id/edit_prod_price"
-                            style="@style/txt_fieldStyle"
+                            style="@style/inputBox"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:layout_margin="7dp"
                             android:layout_weight="1"
-                            android:inputType="numberDecimal" />
-                    </LinearLayout>
+                            android:ems="10"
+                            android:hint="@string/price_hint"
+                            android:inputType="numberDecimal" >
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical" >
-
-                        <TextView
-                            style="@style/labelStyle"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/cost_hint" />
+                            <requestFocus />
+                        </EditText>
 
                         <EditText
                             android:id="@+id/edit_prod_cost"
-                            style="@style/txt_fieldStyle"
+                            style="@style/inputBox"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="@string/cost_hint"
                             android:inputType="numberDecimal" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" >
-
-                <TextView
-                    android:id="@+id/textStock"
-                    style="@style/labelStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/stock_hint"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textStockNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stock_hint" />
-
-            </LinearLayout>
-
-            <LinearLayout
+                android:id="@+id/linearLayout1"
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <TextView
-                    style="@style/labelStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/add_item_label" />
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" >
-
-                    <EditText
-                        android:id="@+id/units_to_add"
-                        style="@style/txt_fieldStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:inputType="number"
-                        android:text="@string/defaul_add_sell_value" />
-
-                    <Button
-                        android:id="@+id/btt_add_stock"
-                        style="@style/bttStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/add_btt" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <TextView
-                    style="@style/labelStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/sell_item_label" />
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" >
-
-                    <EditText
-                        android:id="@+id/units_to_sell"
-                        style="@style/txt_fieldStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:inputType="number"
-                        android:text="@string/defaul_add_sell_value" />
-
-                    <Button
-                        android:id="@+id/btt_sell_units"
-                        style="@style/bttStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/sell_item_btt" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="bottom|center_horizontal" >
-
-            <Button
-                android:id="@+id/bttSaveItem"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="@string/save"
-                android:width="100dp" />
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical" >
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/textStock"
+                        style="@style/labelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/stock_hint"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textStockNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stock_hint" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        style="@style/labelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/add_item_label" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" >
+
+                        <EditText
+                            android:id="@+id/units_to_add"
+                            style="@style/inputBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:text="@string/defaul_add_sell_value" />
+
+                        <Button
+                            android:id="@+id/btt_add_stock"
+                            style="@style/bttStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/add_btt" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        style="@style/labelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/sell_item_label" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" >
+
+                        <EditText
+                            android:id="@+id/units_to_sell"
+                            style="@style/inputBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:text="@string/defaul_add_sell_value" />
+
+                        <Button
+                            android:id="@+id/btt_sell_units"
+                            style="@style/bttStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sell_item_btt" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="bottom|center_horizontal" >
+
+                <Button
+                    android:id="@+id/bttSaveItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="@string/save"
+                    android:width="100dp" />
+            </LinearLayout>
         </LinearLayout>
-
-    </LinearLayout>
-        
     </RelativeLayout>
-
-    
 
 </ScrollView>

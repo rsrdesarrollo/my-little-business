@@ -180,8 +180,6 @@ public class ProductDetailsActivity extends Activity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.product_list_menu, menu);
 		return true;
 	}
 
@@ -189,6 +187,7 @@ public class ProductDetailsActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
+			//TODO: Añadir confirmacion de salir sin guardar.
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}

@@ -3,20 +3,24 @@ package es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
 public class ProductsDBAdapter {
 	private class ProductsDBHelper extends SQLiteOpenHelper {
 		private static final String SQL_CREATE_TABLE = "CREATE VIRTUAL TABLE " + DATABASE_TABLE +
 				" USING fts3"+
-				" ("+KEY_PROD_NAME+" TEXT PRIMARY KEY NOT NULL UNIQUE, "+
+				" ("+KEY_PROD_NAME+" TEXT NOT NULL, "+
 					 KEY_PROD_STOCK+ " INTEGER NOT NULL, "+
 					 KEY_PROD_COST+ " REAL NOT NULL, "+ 
 					 KEY_PROD_PRICE+ " REAL NOT NULL, "+
@@ -47,7 +51,7 @@ public class ProductsDBAdapter {
 	private static final String DATABASE_NAME = "myLittleBusines.db";
 	private static final String DATABASE_TABLE = "Products";
 	
-	private static final int 	DATABASE_VERSION = 2;
+	private static final int 	DATABASE_VERSION = 4;
 	public static final String KEY_PROD_NAME = "prod_name";
 	public static final String KEY_PROD_STOCK = "prod_stock";
 	public static final String KEY_PROD_COST = "prod_cost";
@@ -75,7 +79,14 @@ public class ProductsDBAdapter {
 	}
 
 	public boolean addProduct(Product prod) {
-		return (db.insert(DATABASE_TABLE, null, prod.toContentValues()) >= 0);
+		try{
+			this.getProduct(prod.getName());
+		}catch (SQLException e){
+			return (db.insert(DATABASE_TABLE, null, contentValuesFrom(prod)) >= 0);
+		}
+		
+		return false;
+		
 	}
 
 	public void close() {
@@ -96,7 +107,7 @@ public class ProductsDBAdapter {
 			throw new SQLException("No Product found for condition: "
 					+ KEY_PROD_NAME + " = '" + name + "'");
 
-		return new Product(cursor);
+		return productFrom(cursor);
 	}
 
 	public void open() throws SQLException {
@@ -137,14 +148,47 @@ public class ProductsDBAdapter {
 
 		if (cursor.moveToFirst())
 			do {
-				products.add(new Product(cursor));
+				products.add(productFrom(cursor));
 			} while (cursor.moveToNext());
 
 		return products;
 	}
 
 	public boolean updateProduct(Product prod) {
-		return db.update(DATABASE_TABLE, prod.toContentValues(), KEY_PROD_NAME
+		return db.update(DATABASE_TABLE, contentValuesFrom(prod), KEY_PROD_NAME
 				+ " = '" + prod.getName() + "'", null) > 0;
+	}
+	
+	private ContentValues contentValuesFrom(Product p) {
+		ContentValues content = new ContentValues();
+
+		content.put(ProductsDBAdapter.KEY_PROD_NAME, p.getName());
+		content.put(ProductsDBAdapter.KEY_PROD_STOCK, p.getStock());
+		content.put(ProductsDBAdapter.KEY_PROD_COST, p.getCost());
+		content.put(ProductsDBAdapter.KEY_PROD_PRICE, p.getPrice());
+		content.put(ProductsDBAdapter.KEY_PROD_BOUGHT, p.getBoughtUnits());
+		content.put(ProductsDBAdapter.KEY_PROD_PHOTO,
+				p.getPhotoAsByteArray());
+
+		return content;
+	}
+	
+	private Product productFrom(Cursor cursor) {
+		String name = cursor.getString(ProductsDBAdapter.PROD_NAME_COL);
+		int stock = cursor.getInt(ProductsDBAdapter.PROD_STOCK_COL);
+		double cost = cursor.getDouble(ProductsDBAdapter.PROD_COST_COL);
+		double price = cursor.getDouble(ProductsDBAdapter.PROD_PRICE_COL);
+		int boughtUnits = cursor.getInt(ProductsDBAdapter.PROD_BOUGHT_COL);
+
+		byte[] imageBlob = cursor.getBlob(ProductsDBAdapter.PROD_PHOTO_COL);
+		Bitmap photo = BitmapFactory.decodeByteArray(imageBlob, 0,
+				imageBlob.length);
+		
+		Product ret = null;
+		try {
+			ret = new Product(name, stock, cost, price, photo, boughtUnits);
+		} catch (ProductAttrException e) {}
+		
+		return ret;
 	}
 }

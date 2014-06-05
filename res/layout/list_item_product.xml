@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/activity_vertical_margin"
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="20dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="20dp"
     android:orientation="horizontal" >
 
     <ImageView
         android:id="@+id/photoItemImage"
-        android:layout_width="wrap_content"
+        style="@style/productImage"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="70"
         android:contentDescription="@string/product_image_descrip"
-        android:maxWidth="20dp"
         android:maxHeight="20dp"
+        android:maxWidth="20dp"
         android:minHeight="17dp"
         android:minWidth="17dp"
         android:src="@android:drawable/ic_menu_gallery" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="30"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/nameItemText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name_label"
+            android:text="@string/name_hint"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView

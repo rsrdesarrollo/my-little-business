@@ -2,13 +2,9 @@ package es.ucm.pad.teamjvr.mylittlebusiness.model;
 
 import java.io.ByteArrayOutputStream;
 
-import android.content.ContentValues;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
 import es.ucm.pad.teamjvr.mylittlebusiness.R;
-import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
 public class Product {
@@ -23,17 +19,6 @@ public class Product {
 		this("");
 	}
 
-	public Product(Cursor cursor) {
-		this.name = cursor.getString(ProductsDBAdapter.PROD_NAME_COL);
-		this.stock = cursor.getInt(ProductsDBAdapter.PROD_STOCK_COL);
-		this.cost = cursor.getDouble(ProductsDBAdapter.PROD_COST_COL);
-		this.price = cursor.getDouble(ProductsDBAdapter.PROD_PRICE_COL);
-		this.boughtUnits = cursor.getInt(ProductsDBAdapter.PROD_BOUGHT_COL);
-
-		byte[] imageBlob = cursor.getBlob(ProductsDBAdapter.PROD_PHOTO_COL);
-		this.photo = BitmapFactory.decodeByteArray(imageBlob, 0,
-				imageBlob.length);
-	}
 	
 	public Product(Product other) {
 		this.name = other.name;
@@ -52,8 +37,12 @@ public class Product {
 		this.photo = null;
 		this.boughtUnits = 0;
 	}
-
+	
 	public Product(String name, int stock, double cost, double price, Bitmap photo) throws ProductAttrException {
+		this(name, stock, cost, price, photo, 0);
+	}
+
+	public Product(String name, int stock, double cost, double price, Bitmap photo, int boughtUnits) throws ProductAttrException {
 		if (stock < 0)
 			throw new ProductAttrException(R.string.error_invalid_stock_or_too_large);
 
@@ -102,7 +91,7 @@ public class Product {
 		return photo;
 	}
 
-	private byte[] getPhotoAsByteArray() {
+	public byte[] getPhotoAsByteArray() {
 		if (photo != null) {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			photo.compress(CompressFormat.PNG, 0, outputStream); // PNG: lossless compression
@@ -161,20 +150,6 @@ public class Product {
 			throw new ProductAttrException(R.string.error_invalid_stock_or_too_large);
 		
 		this.stock = stock;
-	}
-
-	public ContentValues toContentValues() {
-		ContentValues content = new ContentValues();
-
-		content.put(ProductsDBAdapter.KEY_PROD_NAME, this.name);
-		content.put(ProductsDBAdapter.KEY_PROD_STOCK, this.stock);
-		content.put(ProductsDBAdapter.KEY_PROD_COST, this.cost);
-		content.put(ProductsDBAdapter.KEY_PROD_PRICE, this.price);
-		content.put(ProductsDBAdapter.KEY_PROD_BOUGHT, this.boughtUnits);
-		content.put(ProductsDBAdapter.KEY_PROD_PHOTO,
-				this.getPhotoAsByteArray());
-
-		return content;
 	}
 
 	@Override
