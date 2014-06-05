@@ -53,8 +53,7 @@ public class Product {
 		this.boughtUnits = 0;
 	}
 
-	public Product(String name, int stock, double cost, double price,
-			Bitmap photo) throws ProductAttrException {
+	public Product(String name, int stock, double cost, double price, Bitmap photo) throws ProductAttrException {
 		if (stock < 0)
 			throw new ProductAttrException(R.string.error_invalid_stock_or_too_large);
 
@@ -81,23 +80,6 @@ public class Product {
 		
 		this.stock += units;
 		this.boughtUnits += units;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Product other = (Product) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
 	}
 
 	public String getBoughtUnits() {

@@ -23,11 +23,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
 
-public class ProductListActivity extends ListActivity implements SearchView.OnQueryTextListener{
+public class ProductListActivity extends ListActivity {
 	
+	private ProductsDBAdapter db;
 	private OnItemLongClickListener onListItemLongClick = new OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View v, int pos, long id) {
@@ -43,11 +44,9 @@ public class ProductListActivity extends ListActivity implements SearchView.OnQu
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						MLBApplication app = (MLBApplication) getApplication();
-						app.deleteProduct((Product)l.getItemAtPosition(position));
+						db.deleteProduct((Product)l.getItemAtPosition(position));
 						
-						regenerateProductsList();
-						
+						regenerateProductsList(null);
 					}
 				})
 				.show();
@@ -59,6 +58,8 @@ public class ProductListActivity extends ListActivity implements SearchView.OnQu
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.db = new ProductsDBAdapter(this);
+		this.db.open();
 
 		// Create a progress bar to display while the list loads
 		String emptyMsg = getResources().getString(R.string.empty_list);
@@ -75,10 +76,13 @@ public class ProductListActivity extends ListActivity implements SearchView.OnQu
 
 		// Must add the progress bar to the root of the layout
 		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
-		root.addView(textMsg);
-		
-		regenerateProductsList();
-		
+		root.addView(textMsg);		
+	}
+	
+	@Override
+	protected void onResume() {
+		regenerateProductsList(null);
+		super.onResume();
 	}
 	
 
@@ -97,12 +101,25 @@ public class ProductListActivity extends ListActivity implements SearchView.OnQu
 		
 		SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();	
 		
-//		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//		if (null != searchManager) {
-//			searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//		}
-	
-		searchView.setOnQueryTextListener(this);
+		searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+			@Override
+			public boolean onClose() {
+				regenerateProductsList(null);
+				return false;
+			}
+		});
+		
+		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				return false;
+			}
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				regenerateProductsList(query);
+				return true;
+			}
+		});
 		
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -136,13 +153,13 @@ public class ProductListActivity extends ListActivity implements SearchView.OnQu
 	}
 
 	@Override
-	protected void onResume() {
-		super.onResume();
-		regenerateProductsList();
+	protected void onDestroy() {
+		this.db.close();
+		super.onStop();
 	}
 	
-	private void regenerateProductsList() {
-		List<Product> products = ((MLBApplication) getApplication()).productList();
+	private void regenerateProductsList(String filter) {
+		List<Product> products = db.getProductsList(filter);
 		getListView().setAdapter(new ProductAdapter(this, android.R.layout.simple_list_item_1, products));
 	};
 	
@@ -179,18 +196,4 @@ public class ProductListActivity extends ListActivity implements SearchView.OnQu
 			return vi;
 		}
 	}
-
-	@Override
-	public boolean onQueryTextChange(String newText) {
-		return false;
-	}
-
-
-	@Override
-	public boolean onQueryTextSubmit(String query) {
-		// TODO Auto-generated method stub
-		Toast.makeText(this, "Query: "+query, 2).show();;
-		return true;
-	}
-
 }

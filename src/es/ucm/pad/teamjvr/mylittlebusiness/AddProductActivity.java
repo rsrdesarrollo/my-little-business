@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,10 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
-public class AddProductActivity extends Activity implements
-		OnClickListener {
+public class AddProductActivity extends Activity implements OnClickListener {
 	private Button bttAdd;
 	private EditText txtName;
 	private EditText txtStock;
@@ -27,6 +26,7 @@ public class AddProductActivity extends Activity implements
 	private EditText txtPrice;
 	private ImageView prodImage;
 	private Bitmap photo;
+	private ProductsDBAdapter db;
 
 	private static final int TAKE_PROD_PIC = 1;
 
@@ -73,19 +73,18 @@ public class AddProductActivity extends Activity implements
 		}
 		
 		try {
-			MLBApplication appl = (MLBApplication) getApplication();
-			
-			if (!appl.addProduct(new Product(descript, stock, cost, price,
-					this.photo)))
-				Toast.makeText(getApplicationContext(),
-						R.string.error_product_exist, Toast.LENGTH_SHORT).show();
+			Product newProd = new Product(descript, stock, cost, price,	this.photo);
+			if (!db.addProduct(newProd))
+				Toast.makeText(getApplicationContext(), R.string.error_product_exist, Toast.LENGTH_SHORT)
+					 .show();
 			else {
 				this.finish();
 				Log.i("AddProduct", "Description: '" + descript + "'");
 			}
+			
 		} catch (ProductAttrException e) {
-			Toast.makeText(getApplicationContext(),
-					e.getDetailMessageId(), Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), e.getDetailMessageId(), Toast.LENGTH_SHORT)
+				 .show();
 			return;
 		}
 	}
@@ -112,7 +111,15 @@ public class AddProductActivity extends Activity implements
 		});
 
 		bttAdd.setOnClickListener(this);
+		this.db = new ProductsDBAdapter(this);
+		this.db.open();
 		setupActionBar();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		db.close();
+		super.onStop();
 	}
 	
 	@Override

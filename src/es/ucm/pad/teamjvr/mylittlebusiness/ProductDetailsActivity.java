@@ -15,6 +15,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 import android.widget.Toast;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
 public class ProductDetailsActivity extends Activity {
@@ -36,6 +37,8 @@ public class ProductDetailsActivity extends Activity {
 
 	private ImageView prodImage;
 	private ImageView prodExtImage;
+	
+	private ProductsDBAdapter db;
 
 	/**
 	 * bttAdd action.
@@ -79,60 +82,54 @@ public class ProductDetailsActivity extends Activity {
 		
 			@Override
 		public void onClick(View v) {
-			String descript = txtName.getText().toString();
+			String name = txtName.getText().toString();
 			double cost, price;
 	
 			try {
 				cost = Double.valueOf(txtCost.getText().toString()).doubleValue();
 			} catch (NumberFormatException e) {
-				Toast.makeText(getApplicationContext(),
-						R.string.error_invalid_cost, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.error_invalid_cost, Toast.LENGTH_SHORT)
+					 .show();
 				return;
 			}
 	
 			try {
 				price = Double.valueOf(txtPrice.getText().toString()).doubleValue();
 			} catch (NumberFormatException e) {
-				Toast.makeText(getApplicationContext(),
-						R.string.error_invalid_price, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.error_invalid_price, Toast.LENGTH_SHORT)
+					 .show();
 				return;
 			}
 	
 			try {
 				productEdited.setCost(cost);
 				productEdited.setPrice(price);
-				productEdited.setName(descript);
+				productEdited.setName(name);
 			} catch (ProductAttrException e) {
-				Toast.makeText(getApplicationContext(), e.getDetailMessageId(),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), e.getDetailMessageId(), Toast.LENGTH_SHORT)
+					 .show();
 				productEdited = new Product(product);
 				return;
 			}
 	
-			MLBApplication appl = (MLBApplication) getApplication();
-	
-			if (productEdited.equals(product)) {
-				if (!appl.updateProduct(productEdited)) {
-					Toast.makeText(getApplicationContext(),
-							R.string.error_product_data, Toast.LENGTH_SHORT).show();
+			if (productEdited.getName().equals(product.getName())) {
+				if (!db.updateProduct(productEdited)) {
+					Toast.makeText(getApplicationContext(), R.string.error_product_data, Toast.LENGTH_SHORT)
+						 .show();
 					productEdited = new Product(product);
 				} else {
-					regenerateProductAttr();
 					finish();
-					Log.i("SavedProduct", "Description: '" + descript + "'");
+					Log.i("SavedProduct", "Description: '" + name + "'");
 				}
 			} else {
-				if (!appl.addProduct(productEdited)) {
-					Toast.makeText(getApplicationContext(),
-							R.string.error_product_exist, Toast.LENGTH_SHORT)
-							.show();
+				if (!db.addProduct(productEdited)) {
+					Toast.makeText(getApplicationContext(), R.string.error_product_exist, Toast.LENGTH_SHORT)
+						 .show();
 					productEdited = new Product(product);
 				} else {
 					Log.i("SavedAndRenamedProduct", "Description: '" + product
-							+ "'" + " ->'" + descript + "'");
-					appl.deleteProduct(product);
-					appl.setCurrentProd(productEdited);
-					regenerateProductAttr();
+							+ "'" + " ->'" + name + "'");
+					db.deleteProduct(product);
 					finish();
 				}
 			}
@@ -168,8 +165,17 @@ public class ProductDetailsActivity extends Activity {
 		this.prodImage.setOnClickListener(zoomImageFromThumb());
 		this.prodExtImage = (ImageView) findViewById(R.id.prod_det_exp_image);
 		this.prodExtImage.setOnClickListener(zoomOutImage());
-
-		regenerateProductAttr();
+		this.db = new ProductsDBAdapter(this);
+		this.db.open();
+		this.product = ((MLBApplication) getApplication()).getCurrentProd();
+		this.productEdited = new Product(this.product);
+		setUI();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		this.db.close();
+		super.onStop();
 	}
 	
 	@Override
@@ -189,26 +195,9 @@ public class ProductDetailsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		regenerateProductAttr();
-	}
-
-	private void regenerateProductAttr() {
-		Product prod_aux = ((MLBApplication) getApplication()).getCurrentProd();
-
-		if ((prod_aux != null) && (!prod_aux.equals(product))) {
-			product = new Product(prod_aux);
-			productEdited = new Product(prod_aux);
-			setUI();
-		} else if (product == null || productEdited == null) {
-			product = new Product();
-			productEdited = new Product(getResources().getText(R.string.name_label).toString());
-			setUI();
-		}
-	}
-
+	/**
+	 * Actualiza los valores de la vista del producto
+	 */
 	private void setUI() {
 		txtName.setText(productEdited.getName());
 		txtCost.setText(productEdited.getCost());

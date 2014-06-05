@@ -14,7 +14,8 @@ import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 
 public class ProductsDBAdapter {
 	private class ProductsDBHelper extends SQLiteOpenHelper {
-		private static final String SQL_CREATE_TABLE = "CREATE TABLE " + DATABASE_TABLE +
+		private static final String SQL_CREATE_TABLE = "CREATE VIRTUAL TABLE " + DATABASE_TABLE +
+				" USING fts3"+
 				" ("+KEY_PROD_NAME+" TEXT PRIMARY KEY NOT NULL UNIQUE, "+
 					 KEY_PROD_STOCK+ " INTEGER NOT NULL, "+
 					 KEY_PROD_COST+ " REAL NOT NULL, "+ 
@@ -33,13 +34,12 @@ public class ProductsDBAdapter {
 		}
 
 		@Override
-		public void onUpgrade(SQLiteDatabase _db, int _oldVersion,
-				int _newVersion) {
+		public void onUpgrade(SQLiteDatabase _db, int _oldVersion, int _newVersion) {
 			Log.w("ProductsDBAdapter", "Upgrading from version " + _oldVersion
 					+ " to " + _newVersion
 					+ ", it will destroy all old data stored.");
 
-			_db.execSQL("DROP TABLE IF EXIST " + DATABASE_TABLE);
+			_db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			onCreate(_db);
 		}
 	}
@@ -47,7 +47,7 @@ public class ProductsDBAdapter {
 	private static final String DATABASE_NAME = "myLittleBusines.db";
 	private static final String DATABASE_TABLE = "Products";
 	
-	private static final int 	DATABASE_VERSION = 1;
+	private static final int 	DATABASE_VERSION = 2;
 	public static final String KEY_PROD_NAME = "prod_name";
 	public static final String KEY_PROD_STOCK = "prod_stock";
 	public static final String KEY_PROD_COST = "prod_cost";
@@ -79,6 +79,7 @@ public class ProductsDBAdapter {
 	}
 
 	public void close() {
+		Log.i(ProductsDBAdapter.class.getName(), "Database is closed");
 		db.close();
 	}
 
@@ -112,13 +113,27 @@ public class ProductsDBAdapter {
 
 	/**
 	 * 
-	 * @return a List with all products in the database
+	 * @param filter Filtro de nombre a aplicar en la consulta
+	 * @return Lista con todos los productos de la BD que encajan con el filtro
 	 */
-	public List<Product> toList() {
+	public List<Product> getProductsList(String filter) {
+		//TODO: Implementar filtro
 		ArrayList<Product> products = new ArrayList<Product>();
+		Cursor cursor;
+		if(filter != null){
+			String[] filters = filter.split("\\s+");
+			filter = "";
+			for (String f : filters) {
+				filter += " *"+f+"*";
+			}
 
-		Cursor cursor = db.query(DATABASE_TABLE, KEYS_PROD, null, null, null,
-				null, null);
+			Log.i(ProductsDBAdapter.class.getName(), "Filter on query: "+filter);
+			filters = new String[] {filter};
+			
+			cursor = db.query(DATABASE_TABLE, KEYS_PROD, KEY_PROD_NAME+" MATCH ?", filters, null, null, null);
+		}else{
+			cursor = db.query(DATABASE_TABLE, KEYS_PROD, null, null, null, null, null);
+		}
 
 		if (cursor.moveToFirst())
 			do {
