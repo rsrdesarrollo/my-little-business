@@ -161,6 +161,6 @@ public class Product {
 
 	public double getBenefits() {
 		Double benefitPerUnit = (this.price - this.cost);
-		return Math.round(100*(getSoldUnits() * benefitPerUnit - this.stock*this.cost)) / 100;
+		return Math.round(100*(getSoldUnits() * benefitPerUnit - this.stock*this.cost)) / 100.0;
 	}
 }

@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -26,20 +26,28 @@
                     style="@style/inputBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="30"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/prodImage"
                     android:ems="10"
-                    android:hint="@string/name_hint" />
+                    android:hint="@string/name_hint" >
+
+                    <requestFocus/>
+                </EditText>
 
                 <ImageView
                     android:id="@+id/prodImage"
                     style="@style/productImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="70"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/nameNewText"
+                    android:layout_marginRight="15dp"
+                    android:adjustViewBounds="true"
                     android:contentDescription="@string/add_new_image_descript"
+                    android:scaleType="center"
                     android:src="@android:drawable/ic_menu_camera" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/stockNewText"
@@ -50,7 +58,6 @@
                 android:hint="@string/stock_hint"
                 android:inputType="number" >
 
-                <requestFocus />
             </EditText>
 
             <LinearLayout
@@ -67,7 +74,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="@string/cost_hint"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@+id/priceNewText" />
 
                 <EditText
                     android:id="@+id/priceNewText"
