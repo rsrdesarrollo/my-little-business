@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-  
+    
+    <string name="app_name">My little business</string>
+    <string name="title_activity_product_list">Productos</string>
+    <string name="action_add_product">Nuevo producto</string>
+    <string name="action_settings">Opciones</string>
+    <string name="title_activity_add_product">Añadir producto</string>
+    <string name="product_info">Información de producto</string>
+    <string name="name_hint">Nombre</string>
+    <string name="stock_hint">Stock</string>
+    <string name="add_item_label">Añadir objetos:</string>
+    <string name="save">Guardar</string>
+    <string name="sell_item_btt">Vender</string>
+    <string name="sell_item_label">Vender objetos:</string>
+    <string name="error_product_exist">El nombre de producto ya existe</string>
+    <string name="error_product_data">Error en los datos del producto</string>
+    <string name="error_name_empty">El campo "Nombre" no puede ser vacio</string>
+    <string name="delete_item">Borrar elemento</string>
+    <string name="delete_item_confrm_msg">¿Seguro que quierer borrar este elemento?</string>
+    <string name="edit_item">Editar elemento</string>
+    <string name="new_item">Nuevo elemento</string>
+    <string name="preferences">Preferencias</string>
+    <string name="loading">Gargando&#8230;</string>
+    <string name="error_there_are_not_enough">No hay cantidad suficiente en el almacen.</string>
+    <string name="error_stock_out_of_bounds">Lo siento, la cantidad de almacén se sale de los límites.</string>
+    <string name="error_invalid_stock_or_too_large">Lo siento, la cantidad de almacén no es válida o es muy grande</string>
+    <string name="by_sales">Por ventas</string>
+    <string name="by_benefits">Por beneficios</string>
+    <string name="sort">Ordenar</string>
+    <string name="cost_hint">Coste</string>
+    <string name="price_hint">Precio</string>
+    <string name="error_invalid_cost">Lo siento, el coste no es válido</string>
+    <string name="error_invalid_price">Lo siento, el precio no es válido</string>
+    <string name="add_btt">Añadir</string>
+    <string name="add_new_image_descript">Añadir imagen nueva&#8230;</string>
+    <string name="product_image_descrip">Imagen del producto</string>
+    <string name="empty_list">Lista vacia</string>
+    <string name="title_activity_product_details">Detalles de producto</string>
+    <string name="defaul_add_sell_value">1</string>
+    <string name="image_product_content_description">Imagen del producto</string>
+    <string name="action_about">Sobre nosotros</string>
+    <string name="action_stats">Estadísticas</string>
+    <string name="benefits_hint">Beneficios</string>
 
 </resources>

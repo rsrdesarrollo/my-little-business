@@ -94,8 +94,9 @@
                 android:id="@+id/bttAddItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_btt"
-                android:width="70dp" />
+                android:minWidth="100dp"
+                android:text="@string/add_btt" />
+
         </LinearLayout>
     </LinearLayout>
 
