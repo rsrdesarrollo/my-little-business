@@ -41,5 +41,6 @@
     <string name="image_product_content_description">Product image</string>
     <string name="action_about">About</string>
     <string name="action_stats">Stats</string>
+    <string name="benefits_hint">Benefits</string>
 
 </resources>

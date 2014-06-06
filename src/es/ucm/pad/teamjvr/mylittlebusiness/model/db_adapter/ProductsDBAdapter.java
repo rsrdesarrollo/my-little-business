@@ -167,8 +167,7 @@ public class ProductsDBAdapter {
 		content.put(ProductsDBAdapter.KEY_PROD_COST, p.getCost());
 		content.put(ProductsDBAdapter.KEY_PROD_PRICE, p.getPrice());
 		content.put(ProductsDBAdapter.KEY_PROD_BOUGHT, p.getBoughtUnits());
-		content.put(ProductsDBAdapter.KEY_PROD_PHOTO,
-				p.getPhotoAsByteArray());
+		content.put(ProductsDBAdapter.KEY_PROD_PHOTO, p.getPhotoAsByteArray());
 
 		return content;
 	}

@@ -1,7 +1,9 @@
 package es.ucm.pad.teamjvr.mylittlebusiness;
 
 import java.text.AttributedString;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.AlertDialog;
@@ -9,6 +11,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -181,13 +184,29 @@ public class ProductListActivity extends ListActivity {
 
 			TextView name = (TextView) vi.findViewById(R.id.nameItemText);
 			TextView stock = (TextView) vi.findViewById(R.id.stockItemText);
+			TextView benefit = (TextView) vi.findViewById(R.id.benefitItemText);
+			TextView price = (TextView) vi.findViewById(R.id.priceItemText);
 			ImageView photo = (ImageView) vi.findViewById(R.id.photoItemImage);
 
+			String sCurrency = Currency.getInstance(Locale.getDefault()).getSymbol();
+			String sPrice = getResources().getString(R.string.price_hint);
+			String sStock = getResources().getString(R.string.stock_hint);
+			String sBenefit = getResources().getString(R.string.benefits_hint);			
+			
 			Product item = items.get(position);
+			int cBenefit;
+			
+			if(item.getBenefits() <= 0)
+				cBenefit = getResources().getColor(R.color.negative_benefits);
+			else
+				cBenefit = getResources().getColor(R.color.positive_benefits);
 
 			if (item != null) {
 				name.setText(item.getName());
-				stock.setText(item.getStock());
+				stock.setText(sStock+" "+item.getStock());
+				price.setText(sPrice+" "+item.getPrice()+sCurrency);
+				benefit.setText(sBenefit+" "+item.getBenefits()+sCurrency);
+				benefit.setTextColor(cBenefit);
 				
 				if (item.getPhoto() != null)
 					photo.setImageBitmap(item.getPhoto());

@@ -8,12 +8,13 @@ import es.ucm.pad.teamjvr.mylittlebusiness.R;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
 public class Product {
-	private String name;
-	private int stock;
-	private double cost;
-	private double price;
-	private int boughtUnits;
-	private Bitmap photo;
+
+	private String name;		// Nombre descriptivo del producto
+	private int stock;			// Cantidad de unidades en almacen
+	private double cost;		// Coste de fabricación/adquisición de cada unidad
+	private double price;		// Precio de venta de cada unidad
+	private int boughtUnits;	// Unidades fabricadas/adquiridas
+	private Bitmap photo;		// Foto del producto
 
 	public Product() {
 		this("");
@@ -39,7 +40,7 @@ public class Product {
 	}
 	
 	public Product(String name, int stock, double cost, double price, Bitmap photo) throws ProductAttrException {
-		this(name, stock, cost, price, photo, 0);
+		this(name, stock, cost, price, photo, stock);
 	}
 
 	public Product(String name, int stock, double cost, double price, Bitmap photo, int boughtUnits) throws ProductAttrException {
@@ -57,7 +58,7 @@ public class Product {
 		
 		this.name = name;
 		this.stock = stock;
-		this.boughtUnits = stock;
+		this.boughtUnits = boughtUnits;
 		this.cost = cost;
 		this.price = price;
 		this.photo = photo;
@@ -105,8 +106,8 @@ public class Product {
 		return Double.toString(price);
 	}
 
-	public String getSoldUnits() {
-		return Integer.toString(boughtUnits - stock);
+	public int getSoldUnits() {
+		return boughtUnits - stock;
 	}
 
 	public String getStock() {
@@ -155,5 +156,11 @@ public class Product {
 	@Override
 	public String toString() {
 		return this.getName();
+	}
+
+
+	public double getBenefits() {
+		Double benefitPerUnit = (this.price - this.cost);
+		return Math.round(100*(getSoldUnits() * benefitPerUnit - this.stock*this.cost)) / 100;
 	}
 }
