@@ -1,20 +1,15 @@
 package es.ucm.pad.teamjvr.mylittlebusiness;
 
-import java.text.AttributedString;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
-import android.app.ActionBar.LayoutParams;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -143,7 +138,8 @@ public class ProductListActivity extends ListActivity {
 			}
 			
 			case R.id.action_about: {
-				//TODO: Añadir actividad de about
+				Intent intent = new Intent(this, AboutMLBActivity.class);
+				startActivity(intent);
 			}
 			
 			case R.id.action_stats: {
