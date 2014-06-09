@@ -131,24 +131,28 @@ public class ProductListActivity extends ListActivity {
 			case R.id.action_addItem: {
 				Intent intent = new Intent(this, AddProductActivity.class);
 				startActivity(intent);
+				break;
 			}
 			
 			case R.id.action_settings:{
 				//TODO: Añadir actividad de opciones
+				break;
 			}
 			
 			case R.id.action_about: {
 				Intent intent = new Intent(this, AboutMLBActivity.class);
 				startActivity(intent);
+				break;
 			}
 			
 			case R.id.action_stats: {
 				//TODO: Añadir actividad de estadísticas
+				break;
 			}
-				
-			default:
-				return super.onOptionsItemSelected(item);
+			
 		}
+		
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
