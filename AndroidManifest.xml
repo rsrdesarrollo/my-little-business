@@ -48,6 +48,9 @@
         <activity
             android:name="es.ucm.pad.teamjvr.mylittlebusiness.AboutMLBActivity"
             android:label="@string/title_activity_about_mlb" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity" />
         </activity>
     </application>
 
