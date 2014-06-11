@@ -1,0 +1,16 @@
+<resources>
+
+    <string name="title_activity_settings">Settings</string>
+
+    <string-array name="pref_sort_by_list">
+        <item>Name</item>
+        <item>Benefits</item>
+        <item>Sales</item>
+    </string-array>
+    
+    <string name="pref_sort_by">Sort list of products</string>
+    
+    <string name="sort_by">Sort By</string>
+    
+
+</resources>

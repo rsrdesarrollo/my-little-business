@@ -52,6 +52,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity" />
         </activity>
+        <activity
+            android:name="es.ucm.pad.teamjvr.mylittlebusiness.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity" />
+        </activity>
     </application>
 
 </manifest>

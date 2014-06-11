@@ -12,7 +12,9 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import es.ucm.pad.teamjvr.mylittlebusiness.SettingsActivity;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
@@ -72,8 +74,10 @@ public class ProductsDBAdapter {
 	private SQLiteDatabase db;
 	
 	private ProductsDBHelper dbHelper;
+	private Context context;
 
 	public ProductsDBAdapter(Context context) {
+		this.context = context;
 		this.dbHelper = new ProductsDBHelper(context, DATABASE_NAME, null,
 				DATABASE_VERSION);
 	}
@@ -128,22 +132,13 @@ public class ProductsDBAdapter {
 	 * @return Lista con todos los productos de la BD que encajan con el filtro
 	 */
 	public List<Product> getProductsList(String filter) {
-		//TODO: Implementar filtro
 		ArrayList<Product> products = new ArrayList<Product>();
 		Cursor cursor;
+		
 		if(filter != null){
-			String[] filters = filter.split("\\s+");
-			filter = "";
-			for (String f : filters) {
-				filter += " *"+f+"*";
-			}
-
-			Log.i(ProductsDBAdapter.class.getName(), "Filter on query: "+filter);
-			filters = new String[] {filter};
-			
-			cursor = db.query(DATABASE_TABLE, KEYS_PROD, KEY_PROD_NAME+" MATCH ?", filters, null, null, null);
+			cursor = db.query(DATABASE_TABLE, KEYS_PROD, KEY_PROD_NAME+" MATCH ?", processFilter(filter), null, null, getOrderBy());
 		}else{
-			cursor = db.query(DATABASE_TABLE, KEYS_PROD, null, null, null, null, null);
+			cursor = db.query(DATABASE_TABLE, KEYS_PROD, null, null, null, null, getOrderBy());
 		}
 
 		if (cursor.moveToFirst())
@@ -153,10 +148,43 @@ public class ProductsDBAdapter {
 
 		return products;
 	}
+	
 
 	public boolean updateProduct(Product prod) {
 		return db.update(DATABASE_TABLE, contentValuesFrom(prod), KEY_PROD_NAME
 				+ " = '" + prod.getName() + "'", null) > 0;
+	}
+	
+	/**
+	 * Convierte una lista de palabras a un filtro para tablas FST3 de SQLite
+	 * 
+	 * @param filter lista de palabras del filtro separadas por blancos.
+	 * @return filtro de la forma *palabra1* ... *palabraN*
+	 */
+	private String[] processFilter(String filter){
+		String[] filters = filter.split("\\s+");
+		filter = "";
+		for (String f : filters) {
+			filter += " *"+f+"*";
+		}
+
+		Log.i(ProductsDBAdapter.class.getName(), "Filter on query: "+filter);
+		return new String[] {filter};
+	}
+	
+	private String getOrderBy(){
+		//TODO: Implementar order by por completo.
+		String sortBy = PreferenceManager.getDefaultSharedPreferences(context).getString(SettingsActivity.PREF_SORT_BY, "Name");
+		
+		if (sortBy.equals("Name")){
+			return KEY_PROD_NAME + " ASC";
+		}else if (sortBy.equals("Benefits")){
+			return "";
+		}else if (sortBy.equals("Sales")){
+			return "";
+		}
+		
+		return KEY_PROD_NAME + " ASC";
 	}
 	
 	private ContentValues contentValuesFrom(Product p) {

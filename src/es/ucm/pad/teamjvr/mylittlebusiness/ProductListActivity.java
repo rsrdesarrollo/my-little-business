@@ -135,7 +135,8 @@ public class ProductListActivity extends ListActivity {
 			}
 			
 			case R.id.action_settings:{
-				//TODO: Añadir actividad de opciones
+				Intent intent = new Intent(this, SettingsActivity.class);
+				startActivity(intent);
 				break;
 			}
 			

@@ -25,9 +25,6 @@
     <string name="error_there_are_not_enough">There are not enough stock.</string>
     <string name="error_stock_out_of_bounds">Sorry, the stock goes out of bounds.</string>
     <string name="error_invalid_stock_or_too_large">Sorry, the stock is not valid entry or is too large</string>
-    <string name="by_sales">By sales</string>
-    <string name="by_benefits">By benefits</string>
-    <string name="sort">Sort</string>
     <string name="cost_hint">Cost</string>
     <string name="price_hint">Price</string>
     <string name="error_invalid_cost">Sorry, the cost is not valid</string>
