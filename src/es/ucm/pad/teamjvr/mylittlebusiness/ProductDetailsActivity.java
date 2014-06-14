@@ -18,7 +18,18 @@ import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
+/**
+ * Actividad que representa la pantalla de detalles de un producto en la aplicación
+ *
+ */
 public class ProductDetailsActivity extends Activity {
+	/*
+	 * Guardamos dos referencias: el producto que se quiere editar (sin cambios)
+	 * y un nuevo Product que irá guardando los cambios progresivamente hasta que
+	 * el usuario decida guardar esos cambios, entonces se graban los cambios de productEdited
+	 * en el producto que se quiere editar
+	 * 
+	 */
 	private Product product;
 	private Product productEdited;
 
@@ -41,7 +52,8 @@ public class ProductDetailsActivity extends Activity {
 	private ProductsDBAdapter db;
 
 	/**
-	 * bttAdd action.
+	 * Implementa la acción que ocurre al pulsar el botón de 'Add'
+	 * 
 	 */
 	private OnClickListener onbttAddClick = new OnClickListener() {
 		@Override
@@ -58,7 +70,8 @@ public class ProductDetailsActivity extends Activity {
 	};
 
 	/**
-	 * bttSell action.
+	 * Implementa la acción que ocurre al pulsar el botón de 'Sell'
+	 * 
 	 */
 	private OnClickListener onBttSellClick = new OnClickListener() {
 		@Override
@@ -73,18 +86,22 @@ public class ProductDetailsActivity extends Activity {
 			}
 		}
 	};
-
 	
 	/**
-	 * bttSave action.
+	 * Implementa la acción que ocurre al pulsar el botón de 'Save'
+	 * 
 	 */
 	private OnClickListener onBttSaveClick = new OnClickListener() {
-		
-			@Override
+		@Override
 		public void onClick(View v) {
 			String name = txtName.getText().toString();
 			double cost, price;
 	
+			/* 
+			 * Vamos comprobando que todos los valores son adecuados para editar el Product,
+			 * si alguno no es correcto sacamos un toast informativo para el usuario
+			 * 
+			 */
 			try {
 				cost = Double.valueOf(txtCost.getText().toString()).doubleValue();
 			} catch (NumberFormatException e) {
@@ -101,6 +118,7 @@ public class ProductDetailsActivity extends Activity {
 				return;
 			}
 	
+			// Se actualizan los valores para productEdited
 			try {
 				productEdited.setCost(cost);
 				productEdited.setPrice(price);
@@ -112,6 +130,11 @@ public class ProductDetailsActivity extends Activity {
 				return;
 			}
 	
+			/*
+			 * Se intentan guardar los cambios en el producto original, controlando
+			 * los posibles errores que pudieran suceder
+			 * 
+			 */
 			if (productEdited.getName().equals(product.getName())) {
 				if (!db.updateProduct(productEdited)) {
 					Toast.makeText(getApplicationContext(), R.string.error_product_data, Toast.LENGTH_SHORT)
@@ -173,14 +196,14 @@ public class ProductDetailsActivity extends Activity {
 	}
 	
 	@Override
-	protected void onDestroy() {
-		this.db.close();
-		super.onStop();
+	public boolean onCreateOptionsMenu(Menu menu) {
+		return true;
 	}
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return true;
+	protected void onDestroy() {
+		this.db.close();
+		super.onStop();
 	}
 
 	@Override
@@ -196,6 +219,7 @@ public class ProductDetailsActivity extends Activity {
 
 	/**
 	 * Actualiza los valores de la vista del producto
+	 * 
 	 */
 	private void setUI() {
 		txtName.setText(productEdited.getName());
@@ -220,6 +244,10 @@ public class ProductDetailsActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
+	/**
+	 * Oculta la vista actual y muestra la imagen del producto a pantalla completa
+	 * 
+	 */
 	private OnClickListener zoomImageFromThumb() {
 		return new OnClickListener() {
 			@Override
@@ -230,6 +258,10 @@ public class ProductDetailsActivity extends Activity {
 		};
 	}
 
+	/**
+	 * Recupera la vista de edición del producto
+	 * 
+	 */
 	private OnClickListener zoomOutImage() {
 		return new OnClickListener() {
 			@Override

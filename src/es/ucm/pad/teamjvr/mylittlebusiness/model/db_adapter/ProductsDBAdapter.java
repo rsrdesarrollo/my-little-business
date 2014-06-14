@@ -18,6 +18,10 @@ import es.ucm.pad.teamjvr.mylittlebusiness.SettingsActivity;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
+/**
+ * Implementa la base de datos de productos en nuestra aplicación
+ *
+ */
 public class ProductsDBAdapter {
 	private class ProductsDBHelper extends SQLiteOpenHelper {
 		private static final String SQL_CREATE_TABLE = "CREATE VIRTUAL TABLE " + DATABASE_TABLE +
@@ -158,8 +162,8 @@ public class ProductsDBAdapter {
 	/**
 	 * Convierte una lista de palabras a un filtro para tablas FST3 de SQLite
 	 * 
-	 * @param filter lista de palabras del filtro separadas por blancos.
-	 * @return filtro de la forma *palabra1* ... *palabraN*
+	 * @param filter Lista de palabras del filtro separadas por blancos.
+	 * @return Filtro de la forma *palabra1* ... *palabraN*
 	 */
 	private String[] processFilter(String filter){
 		String[] filters = filter.split("\\s+");

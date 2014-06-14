@@ -8,9 +8,21 @@ import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
-
+/**
+ * Actividad que representa la pantalla de opciones de la aplicación
+ *
+ */
 public class SettingsActivity extends Activity {
-	
+	public static class SettingsFragment extends PreferenceFragment {
+	    @Override
+	    public void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+
+	        // Load the preferences from an XML resource
+	        addPreferencesFromResource(R.xml.preferences);
+	    }
+	}
+
 	public static String PREF_SORT_BY = "pref_sort_by";
 
 	@Override
@@ -19,6 +31,18 @@ public class SettingsActivity extends Activity {
 		setupActionBar();
 		getFragmentManager().beginTransaction()
 				.replace(android.R.id.content, new SettingsFragment()).commit();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		
+		if (id == android.R.id.home) {
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		}
+		
+		return super.onOptionsItemSelected(item);
 	}
 
 	/**
@@ -31,25 +55,4 @@ public class SettingsActivity extends Activity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == android.R.id.home) {
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	public static class SettingsFragment extends PreferenceFragment {
-	    @Override
-	    public void onCreate(Bundle savedInstanceState) {
-	        super.onCreate(savedInstanceState);
-
-	        // Load the preferences from an XML resource
-	        addPreferencesFromResource(R.xml.preferences);
-	    }
-	}
-
 }

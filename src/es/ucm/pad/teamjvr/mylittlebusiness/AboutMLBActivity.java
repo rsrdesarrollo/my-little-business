@@ -6,8 +6,15 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
+/**
+ * Actividad que representa la pantalla about de la aplicación
+ *
+ */
 public class AboutMLBActivity extends Activity {
-
+	/**
+	 * Tiene un WebView que carga un html
+	 * 
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -15,23 +22,22 @@ public class AboutMLBActivity extends Activity {
 		setContentView(R.layout.activity_about_mlb);
 		WebView myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.loadUrl("file:///android_asset/www/about.html");
-		
-		
-		setupActionBar();
-	}
 
-	private void setupActionBar() {
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		setupActionBar();
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+			case android.R.id.home:
+				NavUtils.navigateUpFromSameTask(this);
+				return true;
 		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 
+	private void setupActionBar() {
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+	}
 }

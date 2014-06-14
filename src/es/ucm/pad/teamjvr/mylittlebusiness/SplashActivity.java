@@ -9,10 +9,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
+/**
+ * Actividad que representa un splash screen para nuestra aplicación
+ *
+ */
 public class SplashActivity extends Activity implements Runnable, OnClickListener {
 	AnimationDrawable loadingAnimation;
 	ImageView loadingBar;
 	Handler handler;
+
+	@Override
+	public void onClick(View v) {
+		handler.removeCallbacks(this);
+		run();
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +34,7 @@ public class SplashActivity extends Activity implements Runnable, OnClickListene
 		loadingAnimation = (AnimationDrawable) loadingBar.getBackground();
 		findViewById(R.id.linear_splash).setOnClickListener(this);
 
+		// Genera una llamada al método run() de esta clase en 2500 ms
 		this.handler = new Handler();
 		this.handler.postDelayed(this, 2500);
 	}
@@ -34,16 +45,14 @@ public class SplashActivity extends Activity implements Runnable, OnClickListene
 		super.onWindowFocusChanged(hasFocus);
 	}
 
+	/**
+	 * Para la animacióin y entra en la pantalla principal
+	 * 
+	 */
 	@Override
 	public void run() {
 		loadingAnimation.stop();
 		startActivity(new Intent(getApplication(), ProductListActivity.class));
 		this.finish();
-	}
-
-	@Override
-	public void onClick(View v) {
-		handler.removeCallbacks(this);
-		run();
 	}
 }

@@ -18,6 +18,10 @@ import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
+/**
+ * Actividad que representa la pantalla de añadir un nuevo producto en la aplicación
+ *
+ */
 public class AddProductActivity extends Activity implements OnClickListener {
 	private Button bttAdd;
 	private EditText txtName;
@@ -26,27 +30,41 @@ public class AddProductActivity extends Activity implements OnClickListener {
 	private EditText txtPrice;
 	private ImageView prodImage;
 	private Bitmap photo;
+	
 	private ProductsDBAdapter db;
 
 	private static final int TAKE_PROD_PIC = 1;
 
+	/**
+	 * Con este método capturamos el evento de que la cámara ha terminado su función
+	 * 
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == TAKE_PROD_PIC)
-			if (data != null)
-				if (data.hasExtra("data")) {
-					this.photo = data.getParcelableExtra("data");
-					prodImage.setImageBitmap(this.photo);
-				}
+		if ((requestCode == TAKE_PROD_PIC) && (data != null)
+				&& (data.hasExtra("data"))) {
+			this.photo = data.getParcelableExtra("data");
+			prodImage.setImageBitmap(this.photo);
+		}
+		
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
+	/**
+	 * Implementa la función del botón principal (añadir finalmente el producto)
+	 * 
+	 */
 	@Override
 	public void onClick(View v) {
 		String descript = txtName.getText().toString();
 		int stock;
 		double cost, price;
 
+		/* 
+		 * Vamos comprobando que todos los valores son adecuados para generar el nuevo Product,
+		 * si alguno no es correcto sacamos un toast informativo para el usuario
+		 * 
+		 */
 		try {
 			stock = Integer.valueOf(txtStock.getText().toString());
 		} catch (NumberFormatException e) {
@@ -72,6 +90,11 @@ public class AddProductActivity extends Activity implements OnClickListener {
 			return;
 		}
 		
+		
+		/* 
+		 * Finalmente, si todos los valores son correctos el Product se crea y se intenta
+		 * añadir a la base de datos
+		 */
 		try {
 			Product newProd = new Product(descript, stock, cost, price,	this.photo);
 			if (!db.addProduct(newProd))
@@ -106,6 +129,8 @@ public class AddProductActivity extends Activity implements OnClickListener {
 			@Override
 			public void onClick(View v) {
 				Intent takePic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				
+				// Llamamos a la actividad externa "cámara"
 				startActivityForResult(takePic, TAKE_PROD_PIC);
 			}
 		});
@@ -123,9 +148,14 @@ public class AddProductActivity extends Activity implements OnClickListener {
 	}
 	
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		outState.putParcelable("photo", this.photo);
-		super.onSaveInstanceState(outState);
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				NavUtils.navigateUpFromSameTask(this);
+				return true;
+		}
+		
+		return super.onOptionsItemSelected(item);
 	}
 	
 	@Override
@@ -139,18 +169,14 @@ public class AddProductActivity extends Activity implements OnClickListener {
 		super.onRestoreInstanceState(savedInstanceState);
 	}
 	
-	private void setupActionBar() {
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable("photo", this.photo);
+		super.onSaveInstanceState(outState);
 	}
 
 		
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+	private void setupActionBar() {
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 }

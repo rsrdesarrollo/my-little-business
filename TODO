@@ -1,25 +1,23 @@
-* Actividad detalle/actualización de producto.
-	+ DOING.
-	+ Warnings.
-	
-* Adaptar los layouts.
-	+ Imágenes del mismo tamaño (incluso cuando no hay imagen).
-	+ Diseño responsive e independiente de resolución.
-	+ Warnings.
-	
 * Actividad de estadísticas.
 	+ Producto más vendido.
 	+ Producto que ha aportado más beneficio.
 	+ ...
 	
+DOING:
+* Actividad detalle/actualización de producto.
+	+ Issue #4.
+
+* Activity about.
+	+ @jgsojo.
+	
+* Adaptar los layouts.
+	+ Probar distintas configuraciones de pantalla.
+	
 * Actividad/Dialog de settings.
+	+ Sort by.
 	+ Almacenamiento persistente con SetPreferences.
 		- Cambios en MLBApplication.
-	+ Sort by.
 	+ Importar/exportar a CSV (mediante share).
-	
-* (Opcional) Activity about.
-	+ TODO @jgsojo.
-	
+
 DONE: 
- --* Evento de long press en ProductListActivity.
+* Evento de long press en ProductListActivity.

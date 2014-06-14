@@ -7,8 +7,11 @@ import android.graphics.Bitmap.CompressFormat;
 import es.ucm.pad.teamjvr.mylittlebusiness.R;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
+/**
+ * Implementa la lógica de la aplicación, guarda los detalles de un producto
+ *
+ */
 public class Product {
-
 	private String name;		// Nombre descriptivo del producto
 	private int stock;			// Cantidad de unidades en almacen
 	private double cost;		// Coste de fabricación/adquisición de cada unidad
@@ -19,7 +22,6 @@ public class Product {
 	public Product() {
 		this("");
 	}
-
 	
 	public Product(Product other) {
 		this.name = other.name;
@@ -85,7 +87,6 @@ public class Product {
 	}
 
 	/**
-	 * 
 	 * @return photo of this Product, or null if there's no photo.
 	 */
 	public Bitmap getPhoto() {
@@ -157,7 +158,6 @@ public class Product {
 	public String toString() {
 		return this.getName();
 	}
-
 
 	public double getBenefits() {
 		Double benefitPerUnit = (this.price - this.cost);
