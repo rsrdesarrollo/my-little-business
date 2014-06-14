@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PackageAnalysis>
-    <Package name="es.ucm.pad.teamjvr.mylittlebusiness" x="431" y="189"/>
-    <Package name="es.ucm.pad.teamjvr.mylittlebusiness.model" x="14" y="191">
-        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter">
-            <Point x="230" y="258"/>
-        </DependencyLink>
+    <Package name="es.ucm.pad.teamjvr.mylittlebusiness" x="585" y="57"/>
+    <Package name="es.ucm.pad.teamjvr.mylittlebusiness.model" x="54" y="57">
         <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness"/>
         <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions"/>
     </Package>
     <Package name="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter"
-        x="19" y="317">
-        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model">
-            <Point x="112" y="267"/>
-        </DependencyLink>
+        x="518" y="296">
+        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness"/>
+        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions"/>
+        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model"/>
     </Package>
     <Package name="es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions"
-        x="39" y="105"/>
+        x="12" y="300"/>
 </PackageAnalysis>
