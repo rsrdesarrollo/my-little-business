@@ -1,9 +1,12 @@
 package es.ucm.pad.teamjvr.mylittlebusiness;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -159,6 +162,30 @@ public class ProductDetailsActivity extends Activity {
 		}
 	};
 	
+	/**
+	 * Muestra un Dialog de confirmación de cierre sin guardar cambios al usuario
+	 * 
+	 */
+	private void close() {
+		new AlertDialog.Builder(ProductDetailsActivity.this)
+		.setIcon(android.R.drawable.ic_dialog_alert)
+		.setTitle(R.string.close)
+		.setMessage(R.string.close_without_save)
+		.setNegativeButton(android.R.string.cancel, null)
+		.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (which == DialogInterface.BUTTON_POSITIVE)
+					navigateUpFromSameTask();
+			}
+		})
+		.show();
+	}
+	
+	private void navigateUpFromSameTask() {
+		NavUtils.navigateUpFromSameTask(this);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -205,15 +232,26 @@ public class ProductDetailsActivity extends Activity {
 		this.db.close();
 		super.onStop();
 	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch (keyCode) {
+			case KeyEvent.KEYCODE_BACK:
+				close();
+				return true;
+		}
+		
+		return super.onKeyDown(keyCode, event);
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			//TODO: Añadir confirmacion de salir sin guardar.
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+			case android.R.id.home:
+				close();
+				return true;
 		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 

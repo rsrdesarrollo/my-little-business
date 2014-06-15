@@ -41,5 +41,7 @@
     <string name="benefits_hint">Benefits</string>
     <string name="title_activity_about_mlb">AboutMLB</string>
     <string name="hello_world">Hello world!</string>
+    <string name="close">Close</string>
+    <string name="close_without_save">Close without saving?</string>
 
 </resources>
