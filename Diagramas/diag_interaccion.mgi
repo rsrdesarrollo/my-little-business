@@ -2,53 +2,79 @@
 <ClassDiagram>
     <CommunicationClass
         name="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter.ProductsDBHelper"
-        x="-19" y="377"/>
+        x="36" y="38"/>
     <CommunicationClass
         name="es.ucm.pad.teamjvr.mylittlebusiness.ProductDetailsActivity"
-        x="602" y="278">
+        x="490" y="35">
         <Association
             destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
             endpointName="product" kind="Simple"/>
-        <Association
-            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
-            endpointName="productEdited" kind="Simple"/>
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
-    </CommunicationClass>
-    <CommunicationClass
-        name="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity"
-        x="-6" y="179">
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
-    </CommunicationClass>
-    <CommunicationClass
-        name="es.ucm.pad.teamjvr.mylittlebusiness.model.Product" x="302" y="111"/>
-    <CommunicationClass
-        name="es.ucm.pad.teamjvr.mylittlebusiness.AddProductActivity"
-        x="188" y="414">
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
-    </CommunicationClass>
-    <CommunicationClass
-        name="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
-        x="-18" y="275">
-        <Association
-            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter.ProductsDBHelper"
-            endpointName="dbHelper" kind="Simple"/>
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter.ProductsDBHelper"/>
-    </CommunicationClass>
-    <CommunicationClass
-        name="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"
-        x="257" y="283">
         <Association
             destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
             endpointName="db" kind="Simple"/>
         <Association
             destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
-            endpointName="currentProd" kind="Simple"/>
-        <Association
-            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
-            endpointName="products" kind="Simple"/>
+            endpointName="productEdited" kind="Simple"/>
         <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
         <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="es.ucm.pad.teamjvr.mylittlebusiness.model.Product" x="767" y="290"/>
+    <CommunicationClass
+        name="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity.ProductAdapter"
+        x="513" y="287">
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
+            endpointName="items" kind="Simple"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"
+        x="1061" y="39">
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
+            endpointName="currentProd" kind="Simple"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="es.ucm.pad.teamjvr.mylittlebusiness.AboutMLBActivity"
+        x="295" y="604"/>
+    <CommunicationClass
+        name="es.ucm.pad.teamjvr.mylittlebusiness.SettingsActivity.SettingsFragment"
+        x="297" y="672"/>
+    <CommunicationClass
+        name="es.ucm.pad.teamjvr.mylittlebusiness.SettingsActivity"
+        x="297" y="527"/>
+    <CommunicationClass
+        name="es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException"
+        x="290" y="739"/>
+    <CommunicationClass
+        name="es.ucm.pad.teamjvr.mylittlebusiness.SplashActivity"
+        x="299" y="458"/>
+    <CommunicationClass
+        name="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity"
+        x="759" y="652">
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
+            endpointName="db" kind="Simple"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="es.ucm.pad.teamjvr.mylittlebusiness.AddProductActivity"
+        x="48" y="323">
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
+            endpointName="db" kind="Simple"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"/>
+    </CommunicationClass>
+    <CommunicationClass
+        name="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
+        x="264" y="194">
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter.ProductsDBHelper"
+            endpointName="dbHelper" kind="Simple"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter.ProductsDBHelper"/>
     </CommunicationClass>
 </ClassDiagram>
