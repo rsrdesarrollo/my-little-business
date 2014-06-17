@@ -43,5 +43,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="close">Close</string>
     <string name="close_without_save">Close without saving?</string>
+    <string name="title_activity_stats">Stadistics</string>
 
 </resources>

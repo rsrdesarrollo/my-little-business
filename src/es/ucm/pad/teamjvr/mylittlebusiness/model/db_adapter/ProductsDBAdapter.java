@@ -62,12 +62,18 @@ public class ProductsDBAdapter {
 	public static final String KEY_PROD_STOCK = "prod_stock";
 	public static final String KEY_PROD_COST = "prod_cost";
 	public static final String KEY_PROD_PRICE = "prod_price";
-	public static final String KEY_PROD_BOUGHT = "prod_bought";
-	
+	public static final String KEY_PROD_BOUGHT = "prod_bought";	
 	public static final String KEY_PROD_PHOTO = "prod_photo";
+	public static final String KEY_PROD_BENEFIT = "prod_benefit";
+	public static final String KEY_PROD_SALES = "prod_sales";
 	
 	private static final String[] KEYS_PROD = { KEY_PROD_NAME, KEY_PROD_STOCK,
-			KEY_PROD_COST, KEY_PROD_PRICE, KEY_PROD_BOUGHT, KEY_PROD_PHOTO };
+			KEY_PROD_COST, KEY_PROD_PRICE, KEY_PROD_BOUGHT, KEY_PROD_PHOTO,
+			"(("+KEY_PROD_BOUGHT + " - " + KEY_PROD_STOCK + ")" 	// Sold units
+			+" * ("+KEY_PROD_PRICE + " - " + KEY_PROD_COST + ")"	// by benefits per unit
+			+" - " + KEY_PROD_STOCK + " * " + KEY_PROD_COST 		// minus cost of stock
+			+ ") AS " + KEY_PROD_BENEFIT,							//  AS benefits
+			KEY_PROD_BOUGHT + " - " + KEY_PROD_STOCK + " AS " + KEY_PROD_SALES};
 	public static final int PROD_NAME_COL = 0;
 	public static final int PROD_STOCK_COL = 1;
 	public static final int PROD_COST_COL = 2;
@@ -177,15 +183,15 @@ public class ProductsDBAdapter {
 	}
 	
 	private String getOrderBy(){
-		//TODO: Implementar order by por completo.
+		
 		String sortBy = PreferenceManager.getDefaultSharedPreferences(context).getString(SettingsActivity.PREF_SORT_BY, "Name");
 		
 		if (sortBy.equals("Name")){
 			return KEY_PROD_NAME + " ASC";
 		}else if (sortBy.equals("Benefits")){
-			return "";
+			return KEY_PROD_BENEFIT + " DESC";
 		}else if (sortBy.equals("Sales")){
-			return "";
+			return KEY_PROD_SALES + " DESC";
 		}
 		
 		return KEY_PROD_NAME + " ASC";
