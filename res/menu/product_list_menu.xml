@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
     <item
         android:id="@+id/action_addItem"
         android:icon="@android:drawable/ic_input_add"
@@ -10,18 +9,18 @@
     <item
         android:id="@+id/action_settings"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:orderInCategory="104"
+        android:orderInCategory="102"
         android:showAsAction="ifRoom"
         android:title="@string/action_settings"/>
     <item
         android:id="@+id/action_about"
-        android:orderInCategory="103"
+        android:orderInCategory="101"
         android:title="@string/action_about">
     </item>
     <item
         android:id="@+id/action_stats"
         android:icon="@android:drawable/ic_menu_sort_by_size"
-        android:orderInCategory="102"
+        android:orderInCategory="103"
         android:title="@string/action_stats">
     </item>
     <item
@@ -32,5 +31,4 @@
         android:actionViewClass="android.widget.SearchView"
         android:showAsAction="always">
     </item>
-
 </menu>

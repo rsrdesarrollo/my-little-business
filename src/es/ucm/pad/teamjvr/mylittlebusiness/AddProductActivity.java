@@ -1,18 +1,22 @@
 package es.ucm.pad.teamjvr.mylittlebusiness;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
@@ -34,6 +38,30 @@ public class AddProductActivity extends Activity implements OnClickListener {
 	private ProductsDBAdapter db;
 
 	private static final int TAKE_PROD_PIC = 1;
+
+	/**
+	 * Muestra un Dialog de confirmación de cierre sin guardar cambios al usuario
+	 * 
+	 */
+	private void close() {
+		new AlertDialog.Builder(AddProductActivity.this)
+		.setIcon(android.R.drawable.ic_dialog_alert)
+		.setTitle(R.string.close)
+		.setMessage(R.string.close_without_save)
+		.setNegativeButton(android.R.string.cancel, null)
+		.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (which == DialogInterface.BUTTON_POSITIVE)
+					navigateUpFromSameTask();
+			}
+		})
+		.show();
+	}
+	
+	private void navigateUpFromSameTask() {
+		NavUtils.navigateUpFromSameTask(this);
+	}
 
 	/**
 	 * Con este método capturamos el evento de que la cámara ha terminado su función
@@ -94,6 +122,7 @@ public class AddProductActivity extends Activity implements OnClickListener {
 		/* 
 		 * Finalmente, si todos los valores son correctos el Product se crea y se intenta
 		 * añadir a la base de datos
+		 * 
 		 */
 		try {
 			Product newProd = new Product(descript, stock, cost, price,	this.photo);
@@ -111,7 +140,7 @@ public class AddProductActivity extends Activity implements OnClickListener {
 			return;
 		}
 	}
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -148,10 +177,21 @@ public class AddProductActivity extends Activity implements OnClickListener {
 	}
 	
 	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch (keyCode) {
+			case KeyEvent.KEYCODE_BACK:
+				close();
+				return true;
+		}
+		
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
-				NavUtils.navigateUpFromSameTask(this);
+				close();
 				return true;
 		}
 		
