@@ -1,8 +1,11 @@
 package es.ucm.pad.teamjvr.mylittlebusiness;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
@@ -21,7 +24,11 @@ public class AboutMLBActivity extends Activity {
 
 		setContentView(R.layout.activity_about_mlb);
 		WebView myWebView = (WebView) findViewById(R.id.webview);
-		myWebView.loadUrl("file:///android_asset/www/about.html");
+		
+		if (Locale.getDefault().getLanguage().equalsIgnoreCase("es"))
+			myWebView.loadUrl("file:///android_asset/www_es/about.html");
+		else
+			myWebView.loadUrl("file:///android_asset/www/about.html");
 
 		setupActionBar();
 	}
