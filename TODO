@@ -1,23 +1,17 @@
+* Dialog preguntando si quiere salir sin guardar en añadir producto.
+
+* Traducir también la página about.
+
+DOING:
 * Actividad de estadísticas.
 	+ Producto más vendido.
 	+ Producto que ha aportado más beneficio.
 	+ ...
-	
-DOING:
-* Actividad detalle/actualización de producto.
-	+ Issue #4.
 
-* Activity about.
-	+ @jgsojo.
-	
 * Adaptar los layouts.
 	+ Probar distintas configuraciones de pantalla.
 	
 * Actividad/Dialog de settings.
-	+ Sort by.
-	+ Almacenamiento persistente con SetPreferences.
+	+ (Opcional) Almacenamiento persistente con SetPreferences.
 		- Cambios en MLBApplication.
 	+ Importar/exportar a CSV (mediante share).
-
-DONE: 
-* Evento de long press en ProductListActivity.

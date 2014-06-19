@@ -21,13 +21,10 @@
     <string name="edit_item">Editar elemento</string>
     <string name="new_item">Nuevo elemento</string>
     <string name="preferences">Preferencias</string>
-    <string name="loading">Gargando&#8230;</string>
+    <string name="loading">Cargando&#8230;</string>
     <string name="error_there_are_not_enough">No hay cantidad suficiente en el almacen.</string>
     <string name="error_stock_out_of_bounds">Lo siento, la cantidad de almacén se sale de los límites.</string>
     <string name="error_invalid_stock_or_too_large">Lo siento, la cantidad de almacén no es válida o es muy grande</string>
-    <string name="by_sales">Por ventas</string>
-    <string name="by_benefits">Por beneficios</string>
-    <string name="sort">Ordenar</string>
     <string name="cost_hint">Coste</string>
     <string name="price_hint">Precio</string>
     <string name="error_invalid_cost">Lo siento, el coste no es válido</string>
@@ -42,5 +39,22 @@
     <string name="action_about">Sobre nosotros</string>
     <string name="action_stats">Estadísticas</string>
     <string name="benefits_hint">Beneficios</string>
+    <string name="title_activity_about_mlb">Sobre MLB</string>
+    <string name="hello_world">¡Hola mundo!</string>
+    <string name="close">Cerrar</string>
+    <string name="close_without_save">¿Cerrar sin guardar?</string>
+    <string name="title_activity_stats">Estadísticas</string>
+    
+       <string name="title_activity_settings">Opciones</string>
+
+    <string-array name="pref_sort_by_list">
+        <item>Nombre</item>
+        <item>Beneficios</item>
+        <item>Ventas</item>
+    </string-array>
+    
+    <string name="pref_sort_by">Ordenar lista de productos</string>
+    
+    <string name="sort_by">Ordenar por</string>
 
 </resources>

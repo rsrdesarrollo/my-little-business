@@ -183,7 +183,6 @@ public class ProductsDBAdapter {
 	}
 	
 	private String getOrderBy(){
-		
 		String sortBy = PreferenceManager.getDefaultSharedPreferences(context).getString(SettingsActivity.PREF_SORT_BY, "Name");
 		
 		if (sortBy.equals("Name")){
