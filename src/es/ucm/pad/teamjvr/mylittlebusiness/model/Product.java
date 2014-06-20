@@ -163,4 +163,31 @@ public class Product {
 		Double benefitPerUnit = (this.price - this.cost);
 		return Math.round(100*(getSoldUnits() * benefitPerUnit - this.stock*this.cost)) / 100.0;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o == null)
+			return false;
+		if(!(o instanceof Product))
+			return false;
+		if(o == this)
+			return true;
+		
+		Product other = (Product) o;
+		
+		if(other.boughtUnits != this.boughtUnits)
+			return false;
+		if(other.cost != this.cost)
+			return false;
+		if(!other.name.equals(this.name))
+			return false;
+		if(!other.photo.equals(this.photo))
+			return false;
+		if(other.price != this.price)
+			return false;
+		if(other.stock != this.stock)
+			return false;
+		
+		return true;
+	}
 }

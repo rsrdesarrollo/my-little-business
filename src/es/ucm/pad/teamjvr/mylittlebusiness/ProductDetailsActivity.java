@@ -97,39 +97,12 @@ public class ProductDetailsActivity extends Activity {
 	private OnClickListener onBttSaveClick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			String name = txtName.getText().toString();
-			double cost, price;
-	
-			/* 
-			 * Vamos comprobando que todos los valores son adecuados para editar el Product,
-			 * si alguno no es correcto sacamos un toast informativo para el usuario
-			 * 
-			 */
+			
 			try {
-				cost = Double.valueOf(txtCost.getText().toString()).doubleValue();
-			} catch (NumberFormatException e) {
-				Toast.makeText(getApplicationContext(), R.string.error_invalid_cost, Toast.LENGTH_SHORT)
-					 .show();
-				return;
-			}
-	
-			try {
-				price = Double.valueOf(txtPrice.getText().toString()).doubleValue();
-			} catch (NumberFormatException e) {
-				Toast.makeText(getApplicationContext(), R.string.error_invalid_price, Toast.LENGTH_SHORT)
-					 .show();
-				return;
-			}
-	
-			// Se actualizan los valores para productEdited
-			try {
-				productEdited.setCost(cost);
-				productEdited.setPrice(price);
-				productEdited.setName(name);
+				productEdited = getChangedProduct();
 			} catch (ProductAttrException e) {
 				Toast.makeText(getApplicationContext(), e.getDetailMessageId(), Toast.LENGTH_SHORT)
 					 .show();
-				productEdited = new Product(product);
 				return;
 			}
 	
@@ -145,7 +118,7 @@ public class ProductDetailsActivity extends Activity {
 					productEdited = new Product(product);
 				} else {
 					finish();
-					Log.i("SavedProduct", "Description: '" + name + "'");
+					Log.i("SavedProduct", "Description: '" + productEdited.getName() + "'");
 				}
 			} else {
 				if (!db.addProduct(productEdited)) {
@@ -154,7 +127,7 @@ public class ProductDetailsActivity extends Activity {
 					productEdited = new Product(product);
 				} else {
 					Log.i("SavedAndRenamedProduct", "Description: '" + product
-							+ "'" + " ->'" + name + "'");
+							+ "'" + " ->'" + productEdited.getName() + "'");
 					db.deleteProduct(product);
 					finish();
 				}
@@ -162,26 +135,73 @@ public class ProductDetailsActivity extends Activity {
 		}
 	};
 	
+	
 	/**
 	 * Muestra un Dialog de confirmación de cierre sin guardar cambios al usuario
 	 * 
 	 */
 	private void close() {
-		new AlertDialog.Builder(ProductDetailsActivity.this)
-		.setIcon(android.R.drawable.ic_dialog_alert)
-		.setTitle(R.string.close)
-		.setMessage(R.string.close_without_save)
-		.setNegativeButton(android.R.string.cancel, null)
-		.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (which == DialogInterface.BUTTON_POSITIVE)
-					navigateUpFromSameTask();
-			}
-		})
-		.show();
+		if(!isChanged()){
+			navigateUpFromSameTask();
+		}else
+			new AlertDialog.Builder(ProductDetailsActivity.this)
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.setTitle(R.string.close)
+			.setMessage(R.string.close_without_save)
+			.setNegativeButton(android.R.string.cancel, null)
+			.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					if (which == DialogInterface.BUTTON_POSITIVE)
+						navigateUpFromSameTask();
+				}
+			})
+			.show();
 	}
 	
+	private boolean isChanged() {
+		Product changed;
+		
+		try {
+			changed = getChangedProduct();
+			return !changed.equals(product);
+		} catch (ProductAttrException e) {
+			return false;
+		}		
+	}
+	
+	private Product getChangedProduct() throws ProductAttrException{
+		Product productEdited = new Product(this.productEdited);
+		String name = txtName.getText().toString();
+		double cost, price;
+
+		/* 
+		 * Vamos comprobando que todos los valores son adecuados para editar el Product,
+		 * si alguno no es correcto sacamos un toast informativo para el usuario
+		 * 
+		 */
+		try {
+			cost = Double.valueOf(txtCost.getText().toString()).doubleValue();
+		} catch (NumberFormatException e) {
+			throw new ProductAttrException(R.string.error_invalid_cost);
+		}
+
+		try {
+			price = Double.valueOf(txtPrice.getText().toString()).doubleValue();
+		} catch (NumberFormatException e) {
+			throw new ProductAttrException(R.string.error_invalid_price);
+		}
+
+		// Se actualizan los valores para productEdited
+
+		productEdited.setCost(cost);
+		productEdited.setPrice(price);
+		productEdited.setName(name);
+		
+
+		return productEdited;
+	}
+
 	private void navigateUpFromSameTask() {
 		NavUtils.navigateUpFromSameTask(this);
 	}
