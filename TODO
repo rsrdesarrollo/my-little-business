@@ -1,10 +1,4 @@
-* Cambiar el Dialog al salir de AddProductActivity para que solo se muestre
-  si el producto a añadir ha tenido algún cambio.
-
-* Cambiar el Dialog al salir de ProductDetailsActivity para que solo se muestre
-  si el producto a editar ha tenido algún cambio.
-  
- * Actividad/Dialog de settings.
+* Actividad/Dialog de settings.
 	+ (Opcional) Importar/exportar a CSV (mediante share).
 
 DOING:
