@@ -51,6 +51,12 @@
         <item>Benefits</item>
         <item>Sales</item>
     </string-array>
+    
+    <string-array name="pref_sort_by_list_values">
+        <item>Name</item>
+        <item>Benefits</item>
+        <item>Sales</item>
+    </string-array>
 
     <string name="pref_sort_by">Sort list of products</string>
     <string name="sort_by">Sort by</string>

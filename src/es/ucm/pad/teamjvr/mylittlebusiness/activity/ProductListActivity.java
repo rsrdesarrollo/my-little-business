@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
+import es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication;
 import es.ucm.pad.teamjvr.mylittlebusiness.R;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;

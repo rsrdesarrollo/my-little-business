@@ -161,9 +161,9 @@ public class ProductsDBAdapter {
 	
 	/**
 	 * @param n número de productos máximos.
-	 * @return Lista de los 5 productos más vendidos
+	 * @return Lista de los N productos más vendidos
 	 */
-	public List<Product> getTopFiveSales (int n){
+	public ArrayList<Product> getTopNSales (int n){
 		ArrayList<Product> products = new ArrayList<Product>();
 		Cursor cursor;
 		
@@ -179,9 +179,9 @@ public class ProductsDBAdapter {
 	
 	/**
 	 * @param n número de productos máximos.
-	 * @return Lista de los 5 productos más beneficiosos 
+	 * @return Lista de los N productos más beneficiosos 
 	 */
-	public List<Product> getTopFiveBenefits (int n){
+	public ArrayList<Product> getTopNBenefits (int n){
 		ArrayList<Product> products = new ArrayList<Product>();
 		Cursor cursor;
 		

@@ -11,7 +11,7 @@
     <ListPreference
         android:defaultValue="1"
         android:entries="@array/pref_sort_by_list"
-        android:entryValues="@array/pref_sort_by_list"
+        android:entryValues="@array/pref_sort_by_list_values"
         android:key="pref_sort_by"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
