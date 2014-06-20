@@ -221,7 +221,8 @@ public class ProductListActivity extends ListActivity {
 			}
 			
 			case R.id.action_stats: {
-				//TODO: Añadir actividad de estadísticas
+				Intent intent = new Intent(this, StatsActivity.class);
+				startActivity(intent);
 				break;
 			}
 		}
