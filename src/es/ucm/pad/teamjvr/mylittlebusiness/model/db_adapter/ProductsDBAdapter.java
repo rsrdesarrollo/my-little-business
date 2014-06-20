@@ -185,8 +185,8 @@ public class ProductsDBAdapter {
 		ArrayList<Product> products = new ArrayList<Product>();
 		Cursor cursor;
 		
-		cursor = db.query(DATABASE_TABLE, KEYS_PROD, null, null, null, null, KEY_PROD_BOUGHT+" DESC LIMIT "+n);
-
+		cursor = db.query(DATABASE_TABLE, KEYS_PROD, null, null, null, null, KEY_PROD_BENEFIT+" DESC LIMIT "+n);
+		
 		if (cursor.moveToFirst())
 			do {
 				products.add(productFrom(cursor));

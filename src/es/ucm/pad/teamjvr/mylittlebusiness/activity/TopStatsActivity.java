@@ -1,6 +1,5 @@
 package es.ucm.pad.teamjvr.mylittlebusiness.activity;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import android.app.ActionBar;
@@ -8,6 +7,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
@@ -16,9 +16,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnLongClickListener;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import es.ucm.pad.teamjvr.mylittlebusiness.R;
-import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
 import es.ucm.pad.teamjvr.mylittlebusiness.view.ProductAdapter;
 
@@ -32,9 +33,6 @@ public class TopStatsActivity extends Activity implements ActionBar.TabListener 
 	 * {@link android.support.v13.app.FragmentStatePagerAdapter}.
 	 */
 	private SectionsPagerAdapter mSectionsPagerAdapter;
-	private ProductsDBAdapter db;
-	private static ArrayList<Product> products;
-
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
@@ -44,8 +42,6 @@ public class TopStatsActivity extends Activity implements ActionBar.TabListener 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_top_stats);
-		this.db = new ProductsDBAdapter(this);
-		this.db.open();
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -111,12 +107,6 @@ public class TopStatsActivity extends Activity implements ActionBar.TabListener 
 
 		return super.onOptionsItemSelected(item);
 	}
-	
-	@Override
-	protected void onDestroy() {
-		this.db.close();
-		super.onDestroy();
-	}
 
 	private void navigateUpFromSameTask() {
 		NavUtils.navigateUpFromSameTask(this);
@@ -136,13 +126,11 @@ public class TopStatsActivity extends Activity implements ActionBar.TabListener 
 		public Fragment getItem(int position) {
 			switch (position) {
 			case 0:
-				products = db.getTopNBenefits(1);
-				break;
+				return new TopBenefitsListFragment();
 			case 1:
-				products = db.getTopNSales(1);
-				break;
+				return new TopSalessListFragment();
 			}
-			return new TopListFragment();
+			return null;
 			
 		}
 
@@ -165,23 +153,59 @@ public class TopStatsActivity extends Activity implements ActionBar.TabListener 
 		}
 	}
 
+	public static class TopListFragment  extends ListFragment {
+		protected ProductsDBAdapter db;
+		
+		public TopListFragment(){
+		}
+		
+		@Override
+		public void onAttach(Activity activity) {
+			this.db = new ProductsDBAdapter(activity);
+			this.db.open();
+			super.onAttach(activity);
+		}
+		@Override
+		public void onDestroy() {
+			this.db.close();
+			super.onDestroy();
+		}
+		
+		@Override
+		public void onListItemClick(ListView l, View v, int position, long id) {
+			// TODO Auto-generated method stub
+			super.onListItemClick(l, v, position, id);
+		}
+	}
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class TopListFragment extends Fragment {
+	public static class TopBenefitsListFragment extends TopListFragment {
 
-		public TopListFragment(){
+		public TopBenefitsListFragment(){
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_list_top_stats, container, false);
-			ListView listView = (ListView) rootView.findViewById(R.id.topList);
 			
-			listView.setAdapter(new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, products));
-			return rootView;
+			setListAdapter(new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, db.getTopNBenefits(10)));
+			return super.onCreateView(inflater, container, savedInstanceState);
 		}
 	}
 
+	public static class TopSalessListFragment extends TopListFragment {
+
+		public TopSalessListFragment(){
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			
+			setListAdapter(new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, db.getTopNSales(10)));
+			return super.onCreateView(inflater, container, savedInstanceState);
+		}
+	}
 }

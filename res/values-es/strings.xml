@@ -57,4 +57,6 @@
     
     <string name="sort_by">Ordenar por</string>
 
+    <string name="title_top_benefits_section">Top beneficios</string>
+    <string name="title_top_sales_section">Top ventas</string>
 </resources>

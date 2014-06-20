@@ -60,7 +60,7 @@
                 android:value="es.ucm.pad.teamjvr.mylittlebusiness.activity.ProductListActivity" />
         </activity>
         <activity			android:name="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity"
-            android:label="@string/title_activity_top_stats" >
+            android:label="@string/title_activity_stats" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="es.ucm.pad.teamjvr.mylittlebusiness.activity.ProductListActivity" />
