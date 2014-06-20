@@ -56,21 +56,16 @@
         <item>Name</item>
         <item>Benefits</item>
         <item>Sales</item>
-    </string-array>
-    
-    <string-array name="pref_top_size_list">
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>20</item>
-    </string-array>
-    
+    </string-array>    
 
     <string name="pref_sort_by">Sort list of products</string>
+    <string name="pref_sort_by_summary">Field sorting product list</string>
     <string name="sort_by">Sort by</string>
     
+    <string name="pref_top_list_length">TOP list length</string>
     
     <string name="title_top_benefits_section">Top benefits</string>
     <string name="title_top_sales_section">Top sales</string>
+    <string name="pref_top_list_length_summary">Length of the TOP list in stats</string>
 
 </resources>

@@ -8,7 +8,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
@@ -189,8 +191,9 @@ public class TopStatsActivity extends Activity implements ActionBar.TabListener 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			
-			setListAdapter(new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, db.getTopNBenefits(10)));
+			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+			int length = Integer.valueOf(sharedPreferences.getString(SettingsActivity.PREF_TOP_LENGTH, "10"));
+			setListAdapter(new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, db.getTopNBenefits(length)));
 			return super.onCreateView(inflater, container, savedInstanceState);
 		}
 	}
@@ -203,8 +206,9 @@ public class TopStatsActivity extends Activity implements ActionBar.TabListener 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			
-			setListAdapter(new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, db.getTopNSales(10)));
+			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+			int length = Integer.valueOf(sharedPreferences.getString(SettingsActivity.PREF_TOP_LENGTH, "10"));
+			setListAdapter(new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, db.getTopNSales(length)));
 			return super.onCreateView(inflater, container, savedInstanceState);
 		}
 	}

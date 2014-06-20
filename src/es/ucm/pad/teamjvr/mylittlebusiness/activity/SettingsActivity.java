@@ -25,7 +25,8 @@ public class SettingsActivity extends Activity {
 	}
 
 	public static String PREF_SORT_BY = "pref_sort_by";
-
+	public static String PREF_TOP_LENGTH = "pref_top_length";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

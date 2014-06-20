@@ -1,20 +1,23 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
-    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
 
-    <!--
-         NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
-         dismiss it.
-    -->
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <ListPreference
         android:defaultValue="1"
+        android:dialogTitle="@string/sort_by"
         android:entries="@array/pref_sort_by_list"
         android:entryValues="@array/pref_sort_by_list_values"
         android:key="pref_sort_by"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
-        android:title="@string/pref_sort_by" android:dialogTitle="@string/sort_by"/>
+        android:title="@string/pref_sort_by" android:summary="@string/pref_sort_by_summary"/>
+
+    <EditTextPreference
+        android:key="pref_top_length"
+        android:title="@string/pref_top_list_length"
+        android:inputType="number"
+        android:numeric="integer"
+        android:maxLength="2"
+        android:defaultValue="10" android:summary="@string/pref_top_list_length_summary"/>
 
 </PreferenceScreen>
