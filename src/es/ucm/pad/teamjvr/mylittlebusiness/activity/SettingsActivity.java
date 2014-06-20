@@ -1,4 +1,4 @@
-package es.ucm.pad.teamjvr.mylittlebusiness;
+package es.ucm.pad.teamjvr.mylittlebusiness.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import es.ucm.pad.teamjvr.mylittlebusiness.R;
 
 /**
  * Actividad que representa la pantalla de opciones de la aplicación

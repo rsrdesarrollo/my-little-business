@@ -44,7 +44,6 @@
     <string name="close">Close</string>
     <string name="close_without_save">Close without saving?</string>
     <string name="title_activity_stats">Stadistics</string>
-    
     <string name="title_activity_settings">Settings</string>
 
     <string-array name="pref_sort_by_list">
@@ -52,9 +51,12 @@
         <item>Benefits</item>
         <item>Sales</item>
     </string-array>
-    
+
     <string name="pref_sort_by">Sort list of products</string>
-    
     <string name="sort_by">Sort by</string>
+    
+    <string name="title_activity_top_stats">Top 10</string>
+    <string name="title_top_benefits_section">Top benefits</string>
+    <string name="title_top_sales_section">Top sales</string>
 
 </resources>

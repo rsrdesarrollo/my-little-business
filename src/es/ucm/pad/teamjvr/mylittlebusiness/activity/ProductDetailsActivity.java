@@ -1,4 +1,4 @@
-package es.ucm.pad.teamjvr.mylittlebusiness;
+package es.ucm.pad.teamjvr.mylittlebusiness.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 import android.widget.Toast;
+import es.ucm.pad.teamjvr.mylittlebusiness.R;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;

@@ -1,4 +1,4 @@
-package es.ucm.pad.teamjvr.mylittlebusiness;
+package es.ucm.pad.teamjvr.mylittlebusiness.activity;
 
 import android.app.Application;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;

@@ -1,13 +1,13 @@
-package es.ucm.pad.teamjvr.mylittlebusiness;
+package es.ucm.pad.teamjvr.mylittlebusiness.activity;
 
 import java.util.Locale;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import es.ucm.pad.teamjvr.mylittlebusiness.R;
 
 /**
  * Actividad que representa la pantalla about de la aplicación

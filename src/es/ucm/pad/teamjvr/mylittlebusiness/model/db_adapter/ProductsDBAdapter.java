@@ -14,7 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import es.ucm.pad.teamjvr.mylittlebusiness.SettingsActivity;
+import es.ucm.pad.teamjvr.mylittlebusiness.activity.SettingsActivity;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException;
 
@@ -159,7 +159,44 @@ public class ProductsDBAdapter {
 		return products;
 	}
 	
+	/**
+	 * @param n número de productos máximos.
+	 * @return Lista de los 5 productos más vendidos
+	 */
+	public List<Product> getTopFiveSales (int n){
+		ArrayList<Product> products = new ArrayList<Product>();
+		Cursor cursor;
+		
+		cursor = db.query(DATABASE_TABLE, KEYS_PROD, null, null, null, null, KEY_PROD_SALES+" DESC LIMIT "+n);
 
+		if (cursor.moveToFirst())
+			do {
+				products.add(productFrom(cursor));
+			} while (cursor.moveToNext());
+
+		return products;
+	}
+	
+	/**
+	 * @param n número de productos máximos.
+	 * @return Lista de los 5 productos más beneficiosos 
+	 */
+	public List<Product> getTopFiveBenefits (int n){
+		ArrayList<Product> products = new ArrayList<Product>();
+		Cursor cursor;
+		
+		cursor = db.query(DATABASE_TABLE, KEYS_PROD, null, null, null, null, KEY_PROD_BOUGHT+" DESC LIMIT "+n);
+
+		if (cursor.moveToFirst())
+			do {
+				products.add(productFrom(cursor));
+			} while (cursor.moveToNext());
+
+		return products;
+	}
+	
+	
+	
 	public boolean updateProduct(Product prod) {
 		return db.update(DATABASE_TABLE, contentValuesFrom(prod), KEY_PROD_NAME
 				+ " = '" + prod.getName() + "'", null) > 0;

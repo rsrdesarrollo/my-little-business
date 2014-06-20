@@ -1,12 +1,9 @@
-package es.ucm.pad.teamjvr.mylittlebusiness;
+package es.ucm.pad.teamjvr.mylittlebusiness.activity;
 
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,74 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
+import es.ucm.pad.teamjvr.mylittlebusiness.R;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
+import es.ucm.pad.teamjvr.mylittlebusiness.view.ProductAdapter;
 
 /**
  * Actividad que representa la pantalla principal de lista de productos en la aplicación
  *
  */
 public class ProductListActivity extends ListActivity {
-	/**
-	 * Clase que implementa un adaptador para poder mostrar los productos en la ListActivity
-	 * (simplemente una lista de Products)
-	 *
-	 */
-	private class ProductAdapter extends ArrayAdapter<Product> {
-		private List<Product> items;
-		private LayoutInflater inflater;
 
-		public ProductAdapter(Context context, int resource, List<Product> products) {
-			super(context, resource, products);
-			this.items = products;
-			this.inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View vi = convertView;
-			if (convertView == null)
-				vi = inflater.inflate(R.layout.list_item_product, null);
-
-			TextView name = (TextView) vi.findViewById(R.id.nameItemText);
-			TextView stock = (TextView) vi.findViewById(R.id.stockItemText);
-			TextView benefit = (TextView) vi.findViewById(R.id.benefitItemText);
-			TextView price = (TextView) vi.findViewById(R.id.priceItemText);
-			ImageView photo = (ImageView) vi.findViewById(R.id.photoItemImage);
-
-			String sCurrency = Currency.getInstance(Locale.getDefault()).getSymbol();
-			String sPrice = getResources().getString(R.string.price_hint);
-			String sStock = getResources().getString(R.string.stock_hint);
-			String sBenefit = getResources().getString(R.string.benefits_hint);			
-			
-			Product item = items.get(position);
-			int cBenefit;
-			
-			if(item.getBenefits() <= 0)
-				cBenefit = getResources().getColor(R.color.negative_benefits);
-			else
-				cBenefit = getResources().getColor(R.color.positive_benefits);
-
-			if (item != null) {
-				name.setText(item.getName());
-				stock.setText(sStock+" "+item.getStock());
-				price.setText(sPrice+" "+item.getPrice()+sCurrency);
-				benefit.setText(sBenefit+" "+item.getBenefits()+sCurrency);
-				benefit.setTextColor(cBenefit);
-				
-				if (item.getPhoto() != null)
-					photo.setImageBitmap(item.getPhoto());
-			}
-
-			return vi;
-		}
-	}
-	
 	private ProductsDBAdapter db;
 	
 	/*
@@ -221,7 +163,7 @@ public class ProductListActivity extends ListActivity {
 			}
 			
 			case R.id.action_stats: {
-				Intent intent = new Intent(this, StatsActivity.class);
+				Intent intent = new Intent(this, TopStatsActivity.class);
 				startActivity(intent);
 				break;
 			}
