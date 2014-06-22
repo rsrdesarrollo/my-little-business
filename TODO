@@ -1,5 +1,7 @@
-* Entrar en la página de detalles de producto al pulsar sobre alguno de ellos en
-  la Activity de estadísticas.
+* TopStatsActivity:
+	+ Implementar el long click listener.
+	+ Implementar que al volver de haber pulsado un producto, vuelva a la página de
+	  estadísticas y no a la lista principal.
 
 * Actividad/Dialog de settings.
 	+ (Opcional) Importar/exportar a CSV (mediante share).

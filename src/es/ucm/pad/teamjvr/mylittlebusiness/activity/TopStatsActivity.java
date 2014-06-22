@@ -6,6 +6,7 @@ import java.util.Locale;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication;
 import es.ucm.pad.teamjvr.mylittlebusiness.R;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
@@ -51,7 +53,7 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 				this.topListFragment = new TopBenefitsListFragment();
 				break;
 			case 1:
-				this.topListFragment = new TopSalessListFragment();
+				this.topListFragment = new TopSalesListFragment();
 				break;
 			}
 			
@@ -106,19 +108,27 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 			super.onDestroy();
 		}
 		
+		/**
+		 * Implementa la función al pulsar sobre un elemento
+		 * de la lista (acceder a la pantalla de edición / detalles del producto)
+		 * 
+		 */
 		@Override
 		public void onListItemClick(ListView l, View v, int position, long id) {
-			super.onListItemClick(l, v, position, id);
+			Intent intent = new Intent(this.getActivity(), ProductDetailsActivity.class);
+			((MLBApplication) this.getActivity().getApplication()).setCurrentProd((Product) l.getItemAtPosition(position));
+			startActivity(intent);
 		}
 		
+		
 		public void setListData(List<Product> products) {
-			this.productAdapter = new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, products);
+			this.productAdapter = new ProductAdapter(getActivity(), android.R.layout.simple_list_item_1, products);
 			setListAdapter(this.productAdapter);
 		}
 	}
 
-	public static class TopSalessListFragment extends TopListFragment {
-		public TopSalessListFragment(){}
+	public static class TopSalesListFragment extends TopListFragment {
+		public TopSalesListFragment(){}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,

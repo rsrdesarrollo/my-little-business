@@ -28,7 +28,6 @@ import es.ucm.pad.teamjvr.mylittlebusiness.view.ProductAdapter;
  *
  */
 public class ProductListActivity extends ListActivity {
-
 	private ProductsDBAdapter db;
 	private ProductAdapter productAdapter;
 	
