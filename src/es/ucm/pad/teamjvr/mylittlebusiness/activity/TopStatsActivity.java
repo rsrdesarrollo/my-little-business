@@ -27,6 +27,108 @@ import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
 import es.ucm.pad.teamjvr.mylittlebusiness.view.ProductAdapter;
 
 public class TopStatsActivity extends FragmentActivity implements ActionBar.TabListener {
+	/**
+	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+	 * one of the sections/tabs/pages.
+	 */
+	public class SectionsPagerAdapter extends FragmentPagerAdapter {
+		private TopListFragment topListFragment;
+
+		public SectionsPagerAdapter(FragmentManager fragmentManager) {
+			super(fragmentManager);
+		}
+
+		@Override
+		public int getCount() {
+			// Show 2 total pages.
+			return 2;
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			switch (position) {
+			case 0:
+				this.topListFragment = new TopBenefitsListFragment();
+				break;
+			case 1:
+				this.topListFragment = new TopSalessListFragment();
+				break;
+			}
+			
+			return this.topListFragment;
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			Locale l = Locale.getDefault();
+			switch (position) {
+			case 0:
+				return getString(R.string.title_top_benefits_section).toUpperCase(l);
+			case 1:
+				return getString(R.string.title_top_sales_section).toUpperCase(l);
+			}
+			return null;
+		}
+	}
+	
+	/**
+	 * A placeholder fragment containing a simple view.
+	 * 
+	 */
+	public static class TopBenefitsListFragment extends TopListFragment {
+		public TopBenefitsListFragment(){}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+			int length = Integer.valueOf(sharedPreferences.getString(SettingsActivity.PREF_TOP_LENGTH, "10"));
+			setListData(db.getTopNBenefits(length));
+			return super.onCreateView(inflater, container, savedInstanceState);
+		}
+	}
+
+	public static class TopListFragment extends ListFragment {
+		protected ProductsDBAdapter db;
+		protected ProductAdapter productAdapter;
+		
+		public TopListFragment(){}
+		
+		@Override
+		public void onAttach(Activity activity) {
+			this.db = new ProductsDBAdapter(activity);
+			this.db.open();
+			super.onAttach(activity);
+		}
+		@Override
+		public void onDestroy() {
+			this.db.close();
+			super.onDestroy();
+		}
+		
+		@Override
+		public void onListItemClick(ListView l, View v, int position, long id) {
+			super.onListItemClick(l, v, position, id);
+		}
+		
+		public void setListData(List<Product> products) {
+			this.productAdapter = new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, products);
+			setListAdapter(this.productAdapter);
+		}
+	}
+
+	public static class TopSalessListFragment extends TopListFragment {
+		public TopSalessListFragment(){}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+			int length = Integer.valueOf(sharedPreferences.getString(SettingsActivity.PREF_TOP_LENGTH, "10"));
+			setListData(db.getTopNSales(length));
+			return super.onCreateView(inflater, container, savedInstanceState);
+		}
+	}
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -36,10 +138,15 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 	 * {@link android.support.v13.app.FragmentStatePagerAdapter}.
 	 */
 	private SectionsPagerAdapter mSectionsPagerAdapter;
+
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	private ViewPager mViewPager;
+	
+	private void navigateUpFromSameTask() {
+		NavUtils.navigateUpFromSameTask(this);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +169,8 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 		// When swiping between different sections, select the corresponding
 		// tab. We can also use ActionBar.Tab#select() to do this if we have
 		// a reference to the Tab.
-		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+		mViewPager
+				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 					@Override
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
@@ -80,21 +188,6 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 					.setTabListener(this));
 		}
 	}
-
-	@Override
-	public void onTabSelected(ActionBar.Tab tab,FragmentTransaction fragmentTransaction) {
-		// When the given tab is selected, switch to the corresponding page in
-		// the ViewPager.
-		mViewPager.setCurrentItem(tab.getPosition());
-	}
-
-	@Override
-	public void onTabUnselected(ActionBar.Tab tab,	FragmentTransaction fragmentTransaction) {
-	}
-
-	@Override
-	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -111,117 +204,16 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void navigateUpFromSameTask() {
-		NavUtils.navigateUpFromSameTask(this);
-	}
-	
-	/**
-	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-	 * one of the sections/tabs/pages.
-	 */
-	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-		
-		private TopListFragment topListFragment;
+	@Override
+	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
 
-		public SectionsPagerAdapter(FragmentManager fragmentManager) {
-			super(fragmentManager);
-		}
-
-		@Override
-		public  Fragment getItem(int position) {
-			switch (position) {
-			case 0:
-				this.topListFragment = new TopBenefitsListFragment();
-				break;
-			case 1:
-				this.topListFragment = new TopSalessListFragment();
-				break;
-			}
-			
-			return this.topListFragment;
-			
-		}
-
-		@Override
-		public int getCount() {
-			// Show 2 total pages.
-			return 2;
-		}
-
-		@Override
-		public CharSequence getPageTitle(int position) {
-			Locale l = Locale.getDefault();
-			switch (position) {
-			case 0:
-				return getString(R.string.title_top_benefits_section).toUpperCase(l);
-			case 1:
-				return getString(R.string.title_top_sales_section).toUpperCase(l);
-			}
-			return null;
-		}
+	@Override
+	public void onTabSelected(ActionBar.Tab tab,FragmentTransaction fragmentTransaction) {
+		// When the given tab is selected, switch to the corresponding page in
+		// the ViewPager.
+		mViewPager.setCurrentItem(tab.getPosition());
 	}
 
-	public static class TopListFragment  extends ListFragment {
-		protected ProductsDBAdapter db;
-		protected ProductAdapter productAdapter;
-		
-		public TopListFragment(){
-		}
-		
-		@Override
-		public void onAttach(Activity activity) {
-			this.db = new ProductsDBAdapter(activity);
-			this.db.open();
-			super.onAttach(activity);
-		}
-		@Override
-		public void onDestroy() {
-			this.db.close();
-			super.onDestroy();
-		}
-		
-		@Override
-		public void onListItemClick(ListView l, View v, int position, long id) {
-			// TODO Auto-generated method stub
-			super.onListItemClick(l, v, position, id);
-		}
-		
-		public void setListData(List<Product> products) {
-			this.productAdapter = new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, products);
-			setListAdapter(this.productAdapter);
-		}
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class TopBenefitsListFragment extends TopListFragment {
-
-		public TopBenefitsListFragment(){
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-			int length = Integer.valueOf(sharedPreferences.getString(SettingsActivity.PREF_TOP_LENGTH, "10"));
-			setListData(db.getTopNBenefits(length));
-			return super.onCreateView(inflater, container, savedInstanceState);
-		}
-	}
-
-	public static class TopSalessListFragment extends TopListFragment {
-
-		public TopSalessListFragment(){
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-			int length = Integer.valueOf(sharedPreferences.getString(SettingsActivity.PREF_TOP_LENGTH, "10"));
-			setListData(db.getTopNSales(length));
-			return super.onCreateView(inflater, container, savedInstanceState);
-		}
-	}
+	@Override
+	public void onTabUnselected(ActionBar.Tab tab,	FragmentTransaction fragmentTransaction) {}
 }

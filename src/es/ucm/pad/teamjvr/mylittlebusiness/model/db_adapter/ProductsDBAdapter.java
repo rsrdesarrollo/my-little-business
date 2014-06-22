@@ -57,7 +57,7 @@ public class ProductsDBAdapter {
 	private static final String DATABASE_NAME = "myLittleBusines.db";
 	private static final String DATABASE_TABLE = "Products";
 	
-	private static final int 	DATABASE_VERSION = 4;
+	private static final int   DATABASE_VERSION = 4;
 	public static final String KEY_PROD_NAME = "prod_name";
 	public static final String KEY_PROD_STOCK = "prod_stock";
 	public static final String KEY_PROD_COST = "prod_cost";
@@ -108,9 +108,36 @@ public class ProductsDBAdapter {
 		db.close();
 	}
 
+	private ContentValues contentValuesFrom(Product p) {
+		ContentValues content = new ContentValues();
+
+		content.put(ProductsDBAdapter.KEY_PROD_NAME, p.getName());
+		content.put(ProductsDBAdapter.KEY_PROD_STOCK, p.getStock());
+		content.put(ProductsDBAdapter.KEY_PROD_COST, p.getCost());
+		content.put(ProductsDBAdapter.KEY_PROD_PRICE, p.getPrice());
+		content.put(ProductsDBAdapter.KEY_PROD_BOUGHT, p.getBoughtUnits());
+		content.put(ProductsDBAdapter.KEY_PROD_PHOTO, p.getPhotoAsByteArray());
+
+		return content;
+	}
+
 	public boolean deleteProduct(Product prod) {
 		return db.delete(DATABASE_TABLE,
 				KEY_PROD_NAME + " = '" + prod.getName() + "'", null) > 0;
+	}
+
+	private String getOrderBy(){
+		String sortBy = PreferenceManager.getDefaultSharedPreferences(context).getString(SettingsActivity.PREF_SORT_BY, "Name");
+		
+		if (sortBy.equals("Name")) {
+			return KEY_PROD_NAME + " ASC";
+		} else if (sortBy.equals("Benefits")) {
+			return KEY_PROD_BENEFIT + " DESC";
+		} else if (sortBy.equals("Sales")) {
+			return KEY_PROD_SALES + " DESC";
+		}
+
+		return KEY_PROD_NAME + " ASC";
 	}
 
 	public Product getProduct(String name) throws SQLException {
@@ -123,19 +150,7 @@ public class ProductsDBAdapter {
 
 		return productFrom(cursor);
 	}
-
-	public void open() throws SQLException {
-		try {
-			db = dbHelper.getWritableDatabase();
-			Log.i(ProductsDBAdapter.class.getName(),
-					"Database is open in rw-mode mode :)");
-		} catch (SQLException ex) {
-			db = dbHelper.getReadableDatabase();
-			Log.i(ProductsDBAdapter.class.getName(),
-					"Database is open in read-only mode!!!");
-		}
-	}
-
+	
 	/**
 	 * 
 	 * @param filter Filtro de nombre a aplicar en la consulta
@@ -161,25 +176,7 @@ public class ProductsDBAdapter {
 	
 	/**
 	 * @param n número de productos máximos.
-	 * @return Lista de los N productos más vendidos
-	 */
-	public ArrayList<Product> getTopNSales (int n){
-		ArrayList<Product> products = new ArrayList<Product>();
-		Cursor cursor;
-		
-		cursor = db.query(DATABASE_TABLE, KEYS_PROD, null, null, null, null, KEY_PROD_SALES+" DESC LIMIT "+n);
-
-		if (cursor.moveToFirst())
-			do {
-				products.add(productFrom(cursor));
-			} while (cursor.moveToNext());
-
-		return products;
-	}
-	
-	/**
-	 * @param n número de productos máximos.
-	 * @return Lista de los N productos más beneficiosos 
+	 * @return Lista de los n productos más beneficiosos 
 	 */
 	public ArrayList<Product> getTopNBenefits (int n){
 		ArrayList<Product> products = new ArrayList<Product>();
@@ -195,11 +192,34 @@ public class ProductsDBAdapter {
 		return products;
 	}
 	
+	/**
+	 * @param n número de productos máximos.
+	 * @return Lista de los n productos más vendidos
+	 */
+	public ArrayList<Product> getTopNSales(int n){
+		ArrayList<Product> products = new ArrayList<Product>();
+		Cursor cursor;
+		
+		cursor = db.query(DATABASE_TABLE, KEYS_PROD, null, null, null, null, KEY_PROD_SALES+" DESC LIMIT "+n);
+
+		if (cursor.moveToFirst())
+			do {
+				products.add(productFrom(cursor));
+			} while (cursor.moveToNext());
+
+		return products;
+	}
 	
-	
-	public boolean updateProduct(Product prod) {
-		return db.update(DATABASE_TABLE, contentValuesFrom(prod), KEY_PROD_NAME
-				+ " = '" + prod.getName() + "'", null) > 0;
+	public void open() throws SQLException {
+		try {
+			db = dbHelper.getWritableDatabase();
+			Log.i(ProductsDBAdapter.class.getName(),
+					"Database is open in rw-mode mode :)");
+		} catch (SQLException ex) {
+			db = dbHelper.getReadableDatabase();
+			Log.i(ProductsDBAdapter.class.getName(),
+					"Database is open in read-only mode!!!");
+		}
 	}
 	
 	/**
@@ -219,33 +239,6 @@ public class ProductsDBAdapter {
 		return new String[] {filter};
 	}
 	
-	private String getOrderBy(){
-		String sortBy = PreferenceManager.getDefaultSharedPreferences(context).getString(SettingsActivity.PREF_SORT_BY, "Name");
-		
-		if (sortBy.equals("Name")){
-			return KEY_PROD_NAME + " ASC";
-		}else if (sortBy.equals("Benefits")){
-			return KEY_PROD_BENEFIT + " DESC";
-		}else if (sortBy.equals("Sales")){
-			return KEY_PROD_SALES + " DESC";
-		}
-		
-		return KEY_PROD_NAME + " ASC";
-	}
-	
-	private ContentValues contentValuesFrom(Product p) {
-		ContentValues content = new ContentValues();
-
-		content.put(ProductsDBAdapter.KEY_PROD_NAME, p.getName());
-		content.put(ProductsDBAdapter.KEY_PROD_STOCK, p.getStock());
-		content.put(ProductsDBAdapter.KEY_PROD_COST, p.getCost());
-		content.put(ProductsDBAdapter.KEY_PROD_PRICE, p.getPrice());
-		content.put(ProductsDBAdapter.KEY_PROD_BOUGHT, p.getBoughtUnits());
-		content.put(ProductsDBAdapter.KEY_PROD_PHOTO, p.getPhotoAsByteArray());
-
-		return content;
-	}
-	
 	private Product productFrom(Cursor cursor) {
 		String name = cursor.getString(ProductsDBAdapter.PROD_NAME_COL);
 		int stock = cursor.getInt(ProductsDBAdapter.PROD_STOCK_COL);
@@ -263,5 +256,10 @@ public class ProductsDBAdapter {
 		} catch (ProductAttrException e) {}
 		
 		return ret;
+	}
+	
+	public boolean updateProduct(Product prod) {
+		return db.update(DATABASE_TABLE, contentValuesFrom(prod), KEY_PROD_NAME
+				+ " = '" + prod.getName() + "'", null) > 0;
 	}
 }

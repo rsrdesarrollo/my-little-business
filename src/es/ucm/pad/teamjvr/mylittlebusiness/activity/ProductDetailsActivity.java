@@ -143,36 +143,26 @@ public class ProductDetailsActivity extends Activity {
 	 * 
 	 */
 	private void close() {
-		if(!isChanged()){
+		if (!isChanged()) {
 			navigateUpFromSameTask();
-		}else
+		} else
 			new AlertDialog.Builder(ProductDetailsActivity.this)
-			.setIcon(android.R.drawable.ic_dialog_alert)
-			.setTitle(R.string.close)
-			.setMessage(R.string.close_without_save)
-			.setNegativeButton(android.R.string.cancel, null)
-			.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					if (which == DialogInterface.BUTTON_POSITIVE)
-						navigateUpFromSameTask();
-				}
-			})
-			.show();
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.setTitle(R.string.close)
+					.setMessage(R.string.close_without_save)
+					.setNegativeButton(android.R.string.cancel, null)
+					.setPositiveButton(android.R.string.yes,
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									if (which == DialogInterface.BUTTON_POSITIVE)
+										navigateUpFromSameTask();
+								}
+							}).show();
 	}
 	
-	private boolean isChanged() {
-		Product changed;
-		
-		try {
-			changed = getChangedProduct();
-			return !changed.equals(product);
-		} catch (ProductAttrException e) {
-			return false;
-		}		
-	}
-	
-	private Product getChangedProduct() throws ProductAttrException{
+	private Product getChangedProduct() throws ProductAttrException {
 		Product productEdited = new Product(this.productEdited);
 		String name = txtName.getText().toString();
 		double cost, price;
@@ -202,6 +192,17 @@ public class ProductDetailsActivity extends Activity {
 		
 
 		return productEdited;
+	}
+	
+	private boolean isChanged() {
+		Product changed;
+
+		try {
+			changed = getChangedProduct();
+			return !changed.equals(product);
+		} catch (ProductAttrException e) {
+			return false;
+		}
 	}
 
 	private void navigateUpFromSameTask() {

@@ -68,4 +68,3 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 		return vi;
 	}
 }
-

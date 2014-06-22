@@ -1,13 +1,9 @@
+* Entrar en la página de detalles de producto al pulsar sobre alguno de ellos en
+  la Activity de estadísticas.
+
 * Actividad/Dialog de settings.
 	+ (Opcional) Importar/exportar a CSV (mediante share).
 
 DOING:
-* Actividad de estadísticas.
-	+ Producto más vendido.
-	+ Producto que ha aportado más beneficio.
-	+ ...
-
 * Adaptar los layouts.
 	+ Probar distintas configuraciones de pantalla.
-	
-* Actividad/Dialog de settings.

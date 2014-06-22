@@ -38,25 +38,48 @@ public class AddProductActivity extends Activity implements OnClickListener {
 	private ProductsDBAdapter db;
 
 	private static final int TAKE_PROD_PIC = 1;
-
+	
 	/**
 	 * Muestra un Dialog de confirmación de cierre sin guardar cambios al usuario
 	 * 
 	 */
 	private void close() {
-		new AlertDialog.Builder(AddProductActivity.this)
-		.setIcon(android.R.drawable.ic_dialog_alert)
-		.setTitle(R.string.close)
-		.setMessage(R.string.close_without_save)
-		.setNegativeButton(android.R.string.cancel, null)
-		.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (which == DialogInterface.BUTTON_POSITIVE)
-					navigateUpFromSameTask();
-			}
-		})
-		.show();
+		if (!isChanged()) {
+			navigateUpFromSameTask();
+		} else
+			new AlertDialog.Builder(AddProductActivity.this)
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.setTitle(R.string.close)
+					.setMessage(R.string.close_without_save)
+					.setNegativeButton(android.R.string.cancel, null)
+					.setPositiveButton(android.R.string.yes,
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									if (which == DialogInterface.BUTTON_POSITIVE)
+										navigateUpFromSameTask();
+								}
+							}).show();
+	}
+
+	private boolean isChanged() {
+		if (!txtName.getText().toString().isEmpty())
+			return true;
+		
+		if (!txtStock.getText().toString().isEmpty())
+			return true;
+		
+		if (!txtCost.getText().toString().isEmpty())
+			return true;
+		
+		if (!txtPrice.getText().toString().isEmpty())
+			return true;
+		
+		if (photo != null)
+			return true;
+		
+		return false;
 	}
 	
 	private void navigateUpFromSameTask() {
