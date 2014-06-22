@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PackageAnalysis>
-    <Package name="es.ucm.pad.teamjvr.mylittlebusiness" x="585" y="57"/>
-    <Package name="es.ucm.pad.teamjvr.mylittlebusiness.model" x="54" y="57">
+    <Package name="es.ucm.pad.teamjvr.mylittlebusiness" x="372" y="181"/>
+    <Package name="es.ucm.pad.teamjvr.mylittlebusiness.model" x="341" y="18">
         <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness"/>
         <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions"/>
     </Package>
     <Package name="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter"
-        x="518" y="296">
+        x="814" y="326">
+        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model"/>
+        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions"/>
+        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.activity">
+            <Point x="601" y="312"/>
+        </DependencyLink>
+    </Package>
+    <Package name="es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions"
+        x="-126" y="313"/>
+    <Package name="es.ucm.pad.teamjvr.mylittlebusiness.activity" x="176" y="246">
+        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter">
+            <Point x="623" y="288"/>
+        </DependencyLink>
+        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.view"/>
         <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness"/>
         <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions"/>
         <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model"/>
     </Package>
-    <Package name="es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions"
-        x="12" y="300"/>
+    <Package name="es.ucm.pad.teamjvr.mylittlebusiness.view" x="557" y="241">
+        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness"/>
+        <DependencyLink destination="es.ucm.pad.teamjvr.mylittlebusiness.model"/>
+    </Package>
 </PackageAnalysis>

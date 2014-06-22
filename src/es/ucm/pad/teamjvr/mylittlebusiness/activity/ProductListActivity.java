@@ -30,6 +30,7 @@ import es.ucm.pad.teamjvr.mylittlebusiness.view.ProductAdapter;
 public class ProductListActivity extends ListActivity {
 
 	private ProductsDBAdapter db;
+	private ProductAdapter productAdapter;
 	
 	/*
 	 * Implementa la función al pulsar un elemento de la lista durante
@@ -185,6 +186,7 @@ public class ProductListActivity extends ListActivity {
 	 */
 	private void regenerateProductsList(String filter) {
 		List<Product> products = db.getProductsList(filter);
-		getListView().setAdapter(new ProductAdapter(this, android.R.layout.simple_list_item_1, products));
+		this.productAdapter = new ProductAdapter(this, android.R.layout.simple_list_item_1, products);
+		getListView().setAdapter(this.productAdapter);
 	}
 }

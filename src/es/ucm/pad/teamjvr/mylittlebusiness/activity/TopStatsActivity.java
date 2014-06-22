@@ -1,5 +1,6 @@
 package es.ucm.pad.teamjvr.mylittlebusiness.activity;
 
+import java.util.List;
 import java.util.Locale;
 
 import android.app.ActionBar;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import es.ucm.pad.teamjvr.mylittlebusiness.R;
+import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
 import es.ucm.pad.teamjvr.mylittlebusiness.view.ProductAdapter;
 
@@ -118,6 +120,8 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 	 * one of the sections/tabs/pages.
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
+		
+		private TopListFragment topListFragment;
 
 		public SectionsPagerAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
@@ -127,11 +131,14 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 		public  Fragment getItem(int position) {
 			switch (position) {
 			case 0:
-				return new TopBenefitsListFragment();
+				this.topListFragment = new TopBenefitsListFragment();
+				break;
 			case 1:
-				return new TopSalessListFragment();
+				this.topListFragment = new TopSalessListFragment();
+				break;
 			}
-			return null;
+			
+			return this.topListFragment;
 			
 		}
 
@@ -156,6 +163,7 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 
 	public static class TopListFragment  extends ListFragment {
 		protected ProductsDBAdapter db;
+		protected ProductAdapter productAdapter;
 		
 		public TopListFragment(){
 		}
@@ -177,6 +185,11 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 			// TODO Auto-generated method stub
 			super.onListItemClick(l, v, position, id);
 		}
+		
+		public void setListData(List<Product> products) {
+			this.productAdapter = new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, products);
+			setListAdapter(this.productAdapter);
+		}
 	}
 
 	/**
@@ -192,7 +205,7 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 				Bundle savedInstanceState) {
 			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 			int length = Integer.valueOf(sharedPreferences.getString(SettingsActivity.PREF_TOP_LENGTH, "10"));
-			setListAdapter(new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, db.getTopNBenefits(length)));
+			setListData(db.getTopNBenefits(length));
 			return super.onCreateView(inflater, container, savedInstanceState);
 		}
 	}
@@ -207,7 +220,7 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 				Bundle savedInstanceState) {
 			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 			int length = Integer.valueOf(sharedPreferences.getString(SettingsActivity.PREF_TOP_LENGTH, "10"));
-			setListAdapter(new ProductAdapter(getActivity(),  android.R.layout.simple_list_item_1, db.getTopNSales(length)));
+			setListData(db.getTopNSales(length));
 			return super.onCreateView(inflater, container, savedInstanceState);
 		}
 	}

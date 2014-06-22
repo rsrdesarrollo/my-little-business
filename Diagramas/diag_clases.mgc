@@ -1,43 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ClassDiagram>
     <Class
-        name="es.ucm.pad.teamjvr.mylittlebusiness.ProductDetailsActivity"
-        x="891" y="419">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-        <Association
-            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
-            endpointName="product" kind="Simple"/>
-        <Association
-            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
-            endpointName="db" kind="Simple"/>
-        <Association
-            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
-            endpointName="productEdited" kind="Simple">
-            <Point x="1099" y="117"/>
-        </Association>
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"/>
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
-    </Class>
-    <Class
         name="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter.ProductsDBHelper"
-        x="402" y="503">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-    </Class>
-    <Class name="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
-        x="830" y="27">
+        x="-409" y="385">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -47,8 +12,45 @@
             accessors-accepted="false" constructors-accepted="false"/>
     </Class>
     <Class
-        name="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity.ProductAdapter"
-        x="702" y="263">
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.SplashActivity"
+        x="678" y="217">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.TopSalessListFragment"
+        x="201" y="207">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.TopListFragment">
+            <Point x="187" y="177"/>
+        </Extension>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.TopListFragment"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.SettingsActivity.SettingsFragment"
+        x="-647" y="519">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.view.ProductAdapter"
+        x="3" y="181">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -61,8 +63,70 @@
             endpointName="items" kind="Simple"/>
         <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
     </Class>
+    <Class name="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
+        x="300" y="412">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.TopBenefitsListFragment"
+        x="277" y="104">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.TopListFragment"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.TopListFragment"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.ProductDetailsActivity"
+        x="-65" y="478">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
+            endpointName="product" kind="Simple">
+            <Point x="347" y="640"/>
+        </Association>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
+            endpointName="db" kind="Simple"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
+            endpointName="productEdited" kind="Simple"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.SettingsActivity"
+        x="-401" y="533">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.activity.SettingsActivity.SettingsFragment"
+            endpointName="settingsFragment" kind="Simple"/>
+    </Class>
     <Class name="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"
-        x="459" y="149">
+        x="499" y="562">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -73,64 +137,27 @@
         <Association
             destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"
             endpointName="currentProd" kind="Simple"/>
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity"
+        x="660" y="-9">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.SectionsPagerAdapter"
+            endpointName="mSectionsPagerAdapter" kind="Simple"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.TopListFragment"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.SectionsPagerAdapter"/>
         <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"/>
     </Class>
     <Class
-        name="es.ucm.pad.teamjvr.mylittlebusiness.SettingsActivity.SettingsFragment"
-        x="1247" y="248">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-    </Class>
-    <Class name="es.ucm.pad.teamjvr.mylittlebusiness.AboutMLBActivity"
-        x="1243" y="39">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-    </Class>
-    <Class
-        name="es.ucm.pad.teamjvr.mylittlebusiness.model.exceptions.ProductAttrException"
-        x="1248" y="369">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-    </Class>
-    <Class name="es.ucm.pad.teamjvr.mylittlebusiness.SettingsActivity"
-        x="1250" y="146">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-    </Class>
-    <Class name="es.ucm.pad.teamjvr.mylittlebusiness.SplashActivity"
-        x="1247" y="455">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-    </Class>
-    <Class
-        name="es.ucm.pad.teamjvr.mylittlebusiness.ProductListActivity"
-        x="10" y="517">
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.TopListFragment"
+        x="-7" y="-13">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -141,12 +168,14 @@
         <Association
             destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
             endpointName="db" kind="Simple"/>
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.Product"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.view.ProductAdapter"
+            endpointName="productAdapter" kind="Simple"/>
         <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"/>
-        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
     </Class>
-    <Class name="es.ucm.pad.teamjvr.mylittlebusiness.AddProductActivity"
-        x="18" y="127">
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.AddProductActivity"
+        x="-701" y="211">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -158,11 +187,54 @@
             destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
             endpointName="db" kind="Simple"/>
         <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.SectionsPagerAdapter"
+        x="381" y="10">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.activity.TopStatsActivity.TopListFragment"
+            endpointName="topListFragment" kind="Simple"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.AboutMLBActivity"
+        x="677" y="126">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class
+        name="es.ucm.pad.teamjvr.mylittlebusiness.activity.ProductListActivity"
+        x="-98" y="321">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
+            endpointName="db" kind="Simple"/>
+        <Association
+            destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.view.ProductAdapter"
+            endpointName="productAdapter" kind="Simple"/>
         <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication"/>
+        <Communication destinationClassName="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"/>
     </Class>
     <Class
         name="es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter"
-        x="423" y="266">
+        x="-350" y="171">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>

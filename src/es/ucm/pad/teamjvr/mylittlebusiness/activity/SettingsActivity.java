@@ -26,13 +26,15 @@ public class SettingsActivity extends Activity {
 
 	public static String PREF_SORT_BY = "pref_sort_by";
 	public static String PREF_TOP_LENGTH = "pref_top_length";
+	private SettingsFragment settingsFragment;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setupActionBar();
+		this.settingsFragment = new SettingsFragment();
 		getFragmentManager().beginTransaction()
-				.replace(android.R.id.content, new SettingsFragment()).commit();
+				.replace(android.R.id.content, this.settingsFragment).commit();
 	}
 
 	@Override
