@@ -6,7 +6,6 @@ import java.util.Locale;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import es.ucm.pad.teamjvr.mylittlebusiness.MLBApplication;
 import es.ucm.pad.teamjvr.mylittlebusiness.R;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.Product;
 import es.ucm.pad.teamjvr.mylittlebusiness.model.db_adapter.ProductsDBAdapter;
@@ -115,9 +113,12 @@ public class TopStatsActivity extends FragmentActivity implements ActionBar.TabL
 		 */
 		@Override
 		public void onListItemClick(ListView l, View v, int position, long id) {
-			Intent intent = new Intent(this.getActivity(), ProductDetailsActivity.class);
-			((MLBApplication) this.getActivity().getApplication()).setCurrentProd((Product) l.getItemAtPosition(position));
-			startActivity(intent);
+//			Intent intent = new Intent(this.getActivity(), ProductDetailsActivity.class);
+//			((MLBApplication) this.getActivity().getApplication()).setCurrentProd((Product) l.getItemAtPosition(position));
+//			startActivity(intent);
+			
+			// TODO Auto-generated method stub
+			super.onListItemClick(l, v, position, id);
 		}
 		
 		
